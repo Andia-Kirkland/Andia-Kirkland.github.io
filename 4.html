@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name='robots' content='max-image-preview:large' />
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	    <!-- ctrl cv首页样式，缝太多太屎山了有冗余内容 -->
+    <style id="force-light-mode">
+      :root { color-scheme: light !important; }
+
+      /* 强制基础背景与文字颜色 */
+      html, body {
+        background-color: #ffffff !important;
+        color: #FFF3D7 !important;
+      }
+
+      /* 覆盖常见的深色选择器 / 主题开关 */
+      [data-theme="dark"],
+      .dark,
+      .dark-mode,
+      body.dark,
+      html.dark {
+        background: inherit !important;
+        color: inherit !important;
+      }
+
+      /* 防止媒体或 svg 被反色 */
+      img, picture, video, svg {
+        filter: none !important;
+        background-color: transparent !important;
+      }
+
+      /*强制覆盖常用暗色调变量 */
+      :root {
+        --background-color: #ffffff !important;
+        --bg: #ffffff !important;
+        --foreground: #111111 !important;
+        --text-color: #111111 !important;
+        --muted-color: #444444 !important;
+      }
+
+      /* 强制覆盖 prefers-color-scheme: dark 的行为 */
+      @media (prefers-color-scheme: dark) {
+        :root { color-scheme: light !important; }
+      }
+    </style>
+
+    <!-- 强制使用亮色 -->
+    <script id="force-light-mode-js">
+      (function(){
+        try{
+          // 使用亮色主题
+          document.documentElement.style.colorScheme = 'light';
+          // 移除深色主题
+          document.documentElement.classList.remove('dark');
+          document.body.classList.remove('dark','dark-mode');
+
+          // 转暗为亮
+          document.querySelectorAll('[data-theme]').forEach(function(el){
+            if(el.getAttribute('data-theme') === 'dark') el.setAttribute('data-theme', 'light');
+          });
+
+          // observe future attribute changes on <html> and <body> to remove 'dark' classes if added later
+          var observer = new MutationObserver(function(mutations){
+            mutations.forEach(function(m){
+              var t = m.target;
+              if(t && t.classList){
+                if(t.classList.contains('dark') || t.classList.contains('dark-mode')){
+                  t.classList.remove('dark','dark-mode');
+                }
+              }
+              if(t && t.getAttribute && t.getAttribute('data-theme') === 'dark'){
+                t.setAttribute('data-theme','light');
+              }
+            });
+          });
+          observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class','data-theme'] });
+          observer.observe(document.body, { attributes: true, attributeFilter: ['class','data-theme'] });
+        }catch(e){
+          // fail silently
+          console && console.debug && console.debug('force-light-mode error', e);
+        }
+      })();
+    </script>
+    <title>交互体验</title>
+<style id='wp-block-site-logo-inline-css'>
+.wp-block-site-logo{box-sizing:border-box;line-height:0}.wp-block-site-logo a{display:inline-block;line-height:0}.wp-block-site-logo.is-default-size img{height:auto;width:120px}.wp-block-site-logo img{height:auto;max-width:100%}.wp-block-site-logo a,.wp-block-site-logo img{border-radius:inherit}.wp-block-site-logo.aligncenter{margin-left:auto;margin-right:auto;text-align:center}:root :where(.wp-block-site-logo.is-style-rounded){border-radius:9999px}
+</style>
+<style id='wp-block-group-inline-css'>
+.wp-block-group{box-sizing:border-box}:where(.wp-block-group.wp-block-group-is-layout-constrained){position:relative}
+</style>
+
+<!-- 平台导航块 -->
+<style id='wp-block-navigation-link-inline-css'>
+.wp-block-navigation .wp-block-navigation-item__label{overflow-wrap:break-word}
+.wp-block-navigation .wp-block-navigation-item__description{display:none}
+.link-ui-tools{border-top:1px solid #f0f0f0;padding:8px}
+.link-ui-block-inserter{padding-top:8px}
+.link-ui-block-inserter__back{margin-left:8px;text-transform:uppercase}
+
+				.is-style-arrow-link .wp-block-navigation-item__label:after {
+					content: "\2197";
+					padding-inline-start: 0.25rem;
+					vertical-align: middle;
+					text-decoration: none;
+					display: inline-block;
+				}
+</style>
+<link rel='stylesheet' id='wp-block-navigation-css' href='https://www.ignoredone.space/wp-includes/blocks/navigation/style.min.css?ver=6.8.3' media='all' />
+<style id='wp-block-paragraph-inline-css'>
+.is-small-text{font-size:.875em}.is-regular-text{font-size:1em}.is-large-text{font-size:2.25em}.is-larger-text{font-size:3em}.has-drop-cap:not(:focus):first-letter{float:left;font-size:8.4em;font-style:normal;font-weight:100;line-height:.68;margin:.05em .1em 0 0;text-transform:uppercase}body.rtl .has-drop-cap:not(:focus):first-letter{float:none;margin-left:.1em}p.has-drop-cap.has-background{overflow:hidden}:root :where(p.has-background){padding:1.25em 2.375em}:where(p.has-text-color:not(.has-link-color)) a{color:inherit}p.has-text-align-left[style*="writing-mode:vertical-lr"],p.has-text-align-right[style*="writing-mode:vertical-rl"]{rotate:180deg}
+</style>
+<style id='wp-block-post-content-inline-css'>
+.wp-block-post-content{display:flow-root}
+</style>
+<style id='wp-block-site-title-inline-css'>
+.wp-block-site-title{box-sizing:border-box}.wp-block-site-title :where(a){color:inherit;font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit;text-decoration:inherit}
+</style>
+<style id='wp-block-site-tagline-inline-css'>
+.wp-block-site-tagline{box-sizing:border-box}
+</style>
+<style id='wp-block-heading-inline-css'>
+h1.has-background,h2.has-background,h3.has-background,h4.has-background,h5.has-background,h6.has-background{padding:1.25em 2.375em}h1.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h1.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h2.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h2.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h3.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h3.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h4.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h4.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h5.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h5.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h6.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h6.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]){rotate:180deg}
+
+				.is-style-asterisk:before {
+					content: '';
+					width: 1.5rem;
+					height: 3rem;
+					background: var(--wp--preset--color--contrast-2, currentColor);
+					clip-path: path('M11.93.684v8.039l5.633-5.633 1.216 1.23-5.66 5.66h8.04v1.737H13.2l5.701 5.701-1.23 1.23-5.742-5.742V21h-1.737v-8.094l-5.77 5.77-1.23-1.217 5.743-5.742H.842V9.98h8.162l-5.701-5.7 1.23-1.231 5.66 5.66V.684h1.737Z');
+					display: block;
+				}
+
+				/* 防止标题出现星号 */
+				.is-style-asterisk:empty:before {
+					content: none;
+				}
+
+				.is-style-asterisk:-moz-only-whitespace:before {
+					content: none;
+				}
+
+				.is-style-asterisk.has-text-align-center:before {
+					margin: 0 auto;
+				}
+
+				.is-style-asterisk.has-text-align-right:before {
+					margin-left: auto;
+				}
+
+				.rtl .is-style-asterisk.has-text-align-left:before {
+					margin-right: auto;
+				}
+</style>
+<style id='wp-block-button-inline-css'>
+.wp-block-button__link{align-content:center;box-sizing:border-box;cursor:pointer;display:inline-block;height:100%;text-align:center;word-break:break-word}.wp-block-button__link.aligncenter{text-align:center}.wp-block-button__link.alignright{text-align:right}:where(.wp-block-button__link){border-radius:9999px;box-shadow:none;padding:calc(.667em + 2px) calc(1.333em + 2px);text-decoration:none}.wp-block-button[style*=text-decoration] .wp-block-button__link{text-decoration:inherit}.wp-block-buttons>.wp-block-button.has-custom-width{max-width:none}.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link{width:100%}.wp-block-buttons>.wp-block-button.has-custom-font-size .wp-block-button__link{font-size:inherit}.wp-block-buttons>.wp-block-button.wp-block-button__width-25{width:calc(25% - var(--wp--style--block-gap, .5em)*.75)}.wp-block-buttons>.wp-block-button.wp-block-button__width-50{width:calc(50% - var(--wp--style--block-gap, .5em)*.5)}.wp-block-buttons>.wp-block-button.wp-block-button__width-75{width:calc(75% - var(--wp--style--block-gap, .5em)*.25)}.wp-block-buttons>.wp-block-button.wp-block-button__width-100{flex-basis:100%;width:100%}.wp-block-buttons.is-vertical>.wp-block-button.wp-block-button__width-25{width:25%}.wp-block-buttons.is-vertical>.wp-block-button.wp-block-button__width-50{width:50%}.wp-block-buttons.is-vertical>.wp-block-button.wp-block-button__width-75{width:75%}.wp-block-button.is-style-squared,.wp-block-button__link.wp-block-button.is-style-squared{border-radius:0}.wp-block-button.no-border-radius,.wp-block-button__link.no-border-radius{border-radius:0!important}:root :where(.wp-block-button .wp-block-button__link.is-style-outline),:root :where(.wp-block-button.is-style-outline>.wp-block-button__link){border:2px solid;padding:.667em 1.333em}:root :where(.wp-block-button .wp-block-button__link.is-style-outline:not(.has-text-color)),:root :where(.wp-block-button.is-style-outline>.wp-block-button__link:not(.has-text-color)){color:currentColor}:root :where(.wp-block-button .wp-block-button__link.is-style-outline:not(.has-background)),:root :where(.wp-block-button.is-style-outline>.wp-block-button__link:not(.has-background)){background-color:initial;background-image:none}
+</style>
+<style id='twentytwentyfour-button-style-outline-inline-css'>
+.wp-block-button.is-style-outline
+	> .wp-block-button__link:not(.has-text-color, .has-background):hover {
+	background-color: var(--wp--preset--color--contrast-2, var(--wp--preset--color--contrast, transparent));
+	color: var(--wp--preset--color--base);
+	border-color: var(--wp--preset--color--contrast-2, var(--wp--preset--color--contrast, currentColor));
+}
+
+</style>
+<style id='wp-block-buttons-inline-css'>
+.wp-block-buttons{box-sizing:border-box}.wp-block-buttons.is-vertical{flex-direction:column}.wp-block-buttons.is-vertical>.wp-block-button:last-child{margin-bottom:0}.wp-block-buttons>.wp-block-button{display:inline-block;margin:0}.wp-block-buttons.is-content-justification-left{justify-content:flex-start}.wp-block-buttons.is-content-justification-left.is-vertical{align-items:flex-start}.wp-block-buttons.is-content-justification-center{justify-content:center}.wp-block-buttons.is-content-justification-center.is-vertical{align-items:center}.wp-block-buttons.is-content-justification-right{justify-content:flex-end}.wp-block-buttons.is-content-justification-right.is-vertical{align-items:flex-end}.wp-block-buttons.is-content-justification-space-between{justify-content:space-between}.wp-block-buttons.aligncenter{text-align:center}.wp-block-buttons:not(.is-content-justification-space-between,.is-content-justification-right,.is-content-justification-left,.is-content-justification-center) .wp-block-button.aligncenter{margin-left:auto;margin-right:auto;width:100%}.wp-block-buttons[style*=text-decoration] .wp-block-button,.wp-block-buttons[style*=text-decoration] .wp-block-button__link{text-decoration:inherit}.wp-block-buttons.has-custom-font-size .wp-block-button__link{font-size:inherit}.wp-block-buttons .wp-block-button__link{width:100%}.wp-block-button.aligncenter{text-align:center}
+</style>
+<style id='wp-block-columns-inline-css'>
+.wp-block-columns{align-items:normal!important;box-sizing:border-box;display:flex;flex-wrap:wrap!important}@media (min-width:782px){.wp-block-columns{flex-wrap:nowrap!important}}.wp-block-columns.are-vertically-aligned-top{align-items:flex-start}.wp-block-columns.are-vertically-aligned-center{align-items:center}.wp-block-columns.are-vertically-aligned-bottom{align-items:flex-end}@media (max-width:781px){.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column{flex-basis:100%!important}}@media (min-width:782px){.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column{flex-basis:0;flex-grow:1}.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column[style*=flex-basis]{flex-grow:0}}.wp-block-columns.is-not-stacked-on-mobile{flex-wrap:nowrap!important}.wp-block-columns.is-not-stacked-on-mobile>.wp-block-column{flex-basis:0;flex-grow:1}.wp-block-columns.is-not-stacked-on-mobile>.wp-block-column[style*=flex-basis]{flex-grow:0}:where(.wp-block-columns){margin-bottom:1.75em}:where(.wp-block-columns.has-background){padding:1.25em 2.375em}.wp-block-column{flex-grow:1;min-width:0;overflow-wrap:break-word;word-break:break-word}.wp-block-column.is-vertically-aligned-top{align-self:flex-start}.wp-block-column.is-vertically-aligned-center{align-self:center}.wp-block-column.is-vertically-aligned-bottom{align-self:flex-end}.wp-block-column.is-vertically-aligned-stretch{align-self:stretch}.wp-block-column.is-vertically-aligned-bottom,.wp-block-column.is-vertically-aligned-center,.wp-block-column.is-vertically-aligned-top{width:100%}
+</style>
+<style id='wp-block-library-inline-css'>
+:root{--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,161;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px;--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color)}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}.has-text-align-center{text-align:center}.has-text-align-left{text-align:left}.has-text-align-right{text-align:right}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-wrap:normal!important}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style*=border-top-color]){border-top-style:solid}html :where([style*=border-right-color]){border-right-style:solid}html :where([style*=border-bottom-color]){border-bottom-style:solid}html :where([style*=border-left-color]){border-left-style:solid}html :where([style*=border-width]){border-style:solid}html :where([style*=border-top-width]){border-top-style:solid}html :where([style*=border-right-width]){border-right-style:solid}html :where([style*=border-bottom-width]){border-bottom-style:solid}html :where([style*=border-left-width]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+</style>
+<style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--base: #e4efeb;--wp--preset--color--base-2: #f1fefb;--wp--preset--color--contrast: #000000;--wp--preset--color--contrast-2: #353535;--wp--preset--color--contrast-3: #A4A4A4;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--gradient--gradient-1: linear-gradient(to bottom, #cfcabe 0%, #F9F9F9 100%);--wp--preset--gradient--gradient-2: linear-gradient(to bottom, #C2A990 0%, #F9F9F9 100%);--wp--preset--gradient--gradient-3: linear-gradient(to bottom, #D8613C 0%, #F9F9F9 100%);--wp--preset--gradient--gradient-4: linear-gradient(to bottom, #B1C5A4 0%, #F9F9F9 100%);--wp--preset--gradient--gradient-5: linear-gradient(to bottom, #B5BDBC 0%, #F9F9F9 100%);--wp--preset--gradient--gradient-6: linear-gradient(to bottom, #A4A4A4 0%, #F9F9F9 100%);--wp--preset--gradient--gradient-7: linear-gradient(to bottom, #cfcabe 50%, #F9F9F9 50%);--wp--preset--gradient--gradient-8: linear-gradient(to bottom, #C2A990 50%, #F9F9F9 50%);--wp--preset--gradient--gradient-9: linear-gradient(to bottom, #D8613C 50%, #F9F9F9 50%);--wp--preset--gradient--gradient-10: linear-gradient(to bottom, #B1C5A4 50%, #F9F9F9 50%);--wp--preset--gradient--gradient-11: linear-gradient(to bottom, #B5BDBC 50%, #F9F9F9 50%);--wp--preset--gradient--gradient-12: linear-gradient(to bottom, #A4A4A4 50%, #F9F9F9 50%);--wp--preset--font-size--small: 0.9rem;--wp--preset--font-size--medium: 1.05rem;--wp--preset--font-size--large: clamp(1.39rem, 1.39rem + ((1vw - 0.2rem) * 0.767), 1.85rem);--wp--preset--font-size--x-large: clamp(1.85rem, 1.85rem + ((1vw - 0.2rem) * 1.083), 2.5rem);--wp--preset--font-size--xx-large: clamp(2.5rem, 2.5rem + ((1vw - 0.2rem) * 1.283), 3.27rem);--wp--preset--font-family--heading: "Instrument Sans", sans-serif;--wp--preset--font-family--body: "Jost", sans-serif;--wp--preset--font-family--system-sans-serif: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;--wp--preset--font-family--system-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;--wp--preset--spacing--20: min(1.5rem, 2vw);--wp--preset--spacing--30: min(2.5rem, 3vw);--wp--preset--spacing--40: min(4rem, 5vw);--wp--preset--spacing--50: min(6.5rem, 8vw);--wp--preset--spacing--60: min(10.5rem, 13vw);--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--spacing--10: 1rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:root { --wp--style--global--content-size: 620px;--wp--style--global--wide-size: 1280px; }:where(body) { margin: 0; }.wp-site-blocks { padding-top: var(--wp--style--root--padding-top); padding-bottom: var(--wp--style--root--padding-bottom); }.has-global-padding { padding-right: var(--wp--style--root--padding-right); padding-left: var(--wp--style--root--padding-left); }.has-global-padding > .alignfull { margin-right: calc(var(--wp--style--root--padding-right) * -1); margin-left: calc(var(--wp--style--root--padding-left) * -1); }.has-global-padding :where(:not(.alignfull.is-layout-flow) > .has-global-padding:not(.wp-block-block, .alignfull)) { padding-right: 0; padding-left: 0; }.has-global-padding :where(:not(.alignfull.is-layout-flow) > .has-global-padding:not(.wp-block-block, .alignfull)) > .alignfull { margin-left: 0; margin-right: 0; }.wp-site-blocks > .alignleft { float: left; margin-right: 2em; }.wp-site-blocks > .alignright { float: right; margin-left: 2em; }.wp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }:where(.wp-site-blocks) > * { margin-block-start: 1.2rem; margin-block-end: 0; }:where(.wp-site-blocks) > :first-child { margin-block-start: 0; }:where(.wp-site-blocks) > :last-child { margin-block-end: 0; }:root { --wp--style--block-gap: 1.2rem; }:root :where(.is-layout-flow) > :first-child{margin-block-start: 0;}:root :where(.is-layout-flow) > :last-child{margin-block-end: 0;}:root :where(.is-layout-flow) > *{margin-block-start: 1.2rem;margin-block-end: 0;}:root :where(.is-layout-constrained) > :first-child{margin-block-start: 0;}:root :where(.is-layout-constrained) > :last-child{margin-block-end: 0;}:root :where(.is-layout-constrained) > *{margin-block-start: 1.2rem;margin-block-end: 0;}:root :where(.is-layout-flex){gap: 1.2rem;}:root :where(.is-layout-grid){gap: 1.2rem;}.is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{background-color: var(--wp--preset--color--base);color: var(--wp--preset--color--contrast);font-family: var(--wp--preset--font-family--body);font-size: var(--wp--preset--font-size--medium);font-style: normal;font-weight: 400;line-height: 1.55;--wp--style--root--padding-top: 0px;--wp--style--root--padding-right: var(--wp--preset--spacing--50);--wp--style--root--padding-bottom: 0px;--wp--style--root--padding-left: var(--wp--preset--spacing--50);}a:where(:not(.wp-element-button)){color: var(--wp--preset--color--contrast);text-decoration: underline;}:root :where(a:where(:not(.wp-element-button)):hover){text-decoration: none;}h1, h2, h3, h4, h5, h6{color: var(--wp--preset--color--contrast);font-family: var(--wp--preset--font-family--heading);font-style: normal;font-weight: 600;line-height: 1.2;}h1{font-size: var(--wp--preset--font-size--x-large);line-height: 1.15;}h2{font-size: clamp(1.301rem, 1.301rem + ((1vw - 0.2rem) * 1.332), 2.1rem);}h3{font-size: var(--wp--preset--font-size--large);}h4{font-size: clamp(1.039rem, 1.039rem + ((1vw - 0.2rem) * 0.935), 1.6rem);}h5{font-size: clamp(0.929rem, 0.929rem + ((1vw - 0.2rem) * 0.785), 1.4rem);}h6{font-size: var(--wp--preset--font-size--small);}:root :where(.wp-element-button, .wp-block-button__link){background-color: var(--wp--preset--color--contrast);border-radius: .33rem;border-color: var(--wp--preset--color--contrast);border-width: 0;color: var(--wp--preset--color--base);font-family: inherit;font-size: var(--wp--preset--font-size--small);font-style: normal;font-weight: 500;line-height: inherit;padding-top: 0.6rem;padding-right: 1rem;padding-bottom: 0.6rem;padding-left: 1rem;text-decoration: none;}:root :where(.wp-element-button:hover, .wp-block-button__link:hover){background-color: var(--wp--preset--color--contrast-2);border-color: var(--wp--preset--color--contrast-2);color: var(--wp--preset--color--base);}:root :where(.wp-element-button:focus, .wp-block-button__link:focus){background-color: var(--wp--preset--color--contrast-2);border-color: var(--wp--preset--color--contrast-2);color: var(--wp--preset--color--base);outline-color: var(--wp--preset--color--contrast);outline-offset: 2px;}:root :where(.wp-element-button:active, .wp-block-button__link:active){background-color: var(--wp--preset--color--contrast);color: var(--wp--preset--color--base);}:root :where(.wp-element-caption, .wp-block-audio figcaption, .wp-block-embed figcaption, .wp-block-gallery figcaption, .wp-block-image figcaption, .wp-block-table figcaption, .wp-block-video figcaption){color: var(--wp--preset--color--contrast-2);font-family: var(--wp--preset--font-family--body);font-size: 0.8rem;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-base-color{color: var(--wp--preset--color--base) !important;}.has-base-2-color{color: var(--wp--preset--color--base-2) !important;}.has-contrast-color{color: var(--wp--preset--color--contrast) !important;}.has-contrast-2-color{color: var(--wp--preset--color--contrast-2) !important;}.has-contrast-3-color{color: var(--wp--preset--color--contrast-3) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-base-background-color{background-color: var(--wp--preset--color--base) !important;}.has-base-2-background-color{background-color: var(--wp--preset--color--base-2) !important;}.has-contrast-background-color{background-color: var(--wp--preset--color--contrast) !important;}.has-contrast-2-background-color{background-color: var(--wp--preset--color--contrast-2) !important;}.has-contrast-3-background-color{background-color: var(--wp--preset--color--contrast-3) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-base-border-color{border-color: var(--wp--preset--color--base) !important;}.has-base-2-border-color{border-color: var(--wp--preset--color--base-2) !important;}.has-contrast-border-color{border-color: var(--wp--preset--color--contrast) !important;}.has-contrast-2-border-color{border-color: var(--wp--preset--color--contrast-2) !important;}.has-contrast-3-border-color{border-color: var(--wp--preset--color--contrast-3) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-gradient-1-gradient-background{background: var(--wp--preset--gradient--gradient-1) !important;}.has-gradient-2-gradient-background{background: var(--wp--preset--gradient--gradient-2) !important;}.has-gradient-3-gradient-background{background: var(--wp--preset--gradient--gradient-3) !important;}.has-gradient-4-gradient-background{background: var(--wp--preset--gradient--gradient-4) !important;}.has-gradient-5-gradient-background{background: var(--wp--preset--gradient--gradient-5) !important;}.has-gradient-6-gradient-background{background: var(--wp--preset--gradient--gradient-6) !important;}.has-gradient-7-gradient-background{background: var(--wp--preset--gradient--gradient-7) !important;}.has-gradient-8-gradient-background{background: var(--wp--preset--gradient--gradient-8) !important;}.has-gradient-9-gradient-background{background: var(--wp--preset--gradient--gradient-9) !important;}.has-gradient-10-gradient-background{background: var(--wp--preset--gradient--gradient-10) !important;}.has-gradient-11-gradient-background{background: var(--wp--preset--gradient--gradient-11) !important;}.has-gradient-12-gradient-background{background: var(--wp--preset--gradient--gradient-12) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}.has-xx-large-font-size{font-size: var(--wp--preset--font-size--xx-large) !important;}.has-heading-font-family{font-family: var(--wp--preset--font-family--heading) !important;}.has-body-font-family{font-family: var(--wp--preset--font-family--body) !important;}.has-system-sans-serif-font-family{font-family: var(--wp--preset--font-family--system-sans-serif) !important;}.has-system-serif-font-family{font-family: var(--wp--preset--font-family--system-serif) !important;}
+:root :where(.wp-block-buttons-is-layout-flow) > :first-child{margin-block-start: 0;}:root :where(.wp-block-buttons-is-layout-flow) > :last-child{margin-block-end: 0;}:root :where(.wp-block-buttons-is-layout-flow) > *{margin-block-start: 0.7rem;margin-block-end: 0;}:root :where(.wp-block-buttons-is-layout-constrained) > :first-child{margin-block-start: 0;}:root :where(.wp-block-buttons-is-layout-constrained) > :last-child{margin-block-end: 0;}:root :where(.wp-block-buttons-is-layout-constrained) > *{margin-block-start: 0.7rem;margin-block-end: 0;}:root :where(.wp-block-buttons-is-layout-flex){gap: 0.7rem;}:root :where(.wp-block-buttons-is-layout-grid){gap: 0.7rem;}
+:root :where(.wp-block-navigation){font-style: normal;font-weight: 400;}
+:root :where(.wp-block-navigation a:where(:not(.wp-element-button))){text-decoration: none;}
+:root :where(.wp-block-navigation a:where(:not(.wp-element-button)):hover){text-decoration: underline;}
+:root :where(.wp-block-site-tagline){color: var(--wp--preset--color--contrast-2);font-size: var(--wp--preset--font-size--small);}
+:root :where(.wp-block-site-title){font-family: var(--wp--preset--font-family--heading);font-size: clamp(0.875rem, 0.875rem + ((1vw - 0.2rem) * 0.542), 1.2rem);font-style: normal;font-weight: 600;}
+:root :where(.wp-block-site-title a:where(:not(.wp-element-button))){text-decoration: none;}
+:root :where(.wp-block-site-title a:where(:not(.wp-element-button)):hover){text-decoration: none;}
+</style>
+<style id='core-block-supports-inline-css'>
+.wp-elements-eb2d9070f1aa2dfb1807ca496498b039 a:where(:not(.wp-element-button)){color:var(--wp--preset--color--white);}.wp-container-core-navigation-is-layout-f3c1264a{gap:var(--wp--preset--spacing--10);justify-content:flex-end;}.wp-container-core-group-is-layout-0b5f6e47{gap:0;justify-content:space-between;}.wp-container-core-group-is-layout-8a37410f > .alignfull{margin-right:calc(var(--wp--preset--spacing--30) * -1);margin-left:calc(var(--wp--preset--spacing--30) * -1);}.wp-container-core-group-is-layout-7a773ee2{flex-direction:column;align-items:stretch;}.wp-elements-7d958552883cd7fa22c7ee683f7ae4cd a:where(:not(.wp-element-button)){color:var(--wp--preset--color--base-2);}.wp-elements-b003472f29a3f7602a6749ae5d30de4b a:where(:not(.wp-element-button)){color:var(--wp--preset--color--base);}.wp-container-core-group-is-layout-fe9cc265{flex-direction:column;align-items:flex-start;}.wp-container-core-navigation-is-layout-ea0cb840{gap:var(--wp--preset--spacing--10);flex-direction:column;align-items:flex-start;}.wp-container-core-group-is-layout-ea0cb840{gap:var(--wp--preset--spacing--10);flex-direction:column;align-items:flex-start;}.wp-container-core-group-is-layout-353c4f5a{flex-direction:column;align-items:stretch;}.wp-container-core-buttons-is-layout-d445cf74{justify-content:flex-end;}.wp-container-core-group-is-layout-e5edad21{justify-content:space-between;align-items:flex-start;}.wp-container-core-columns-is-layout-28f84493{flex-wrap:nowrap;}
+</style>
+<style id='wp-block-template-skip-link-inline-css'>
+
+		.skip-link.screen-reader-text {
+			border: 0;
+			clip-path: inset(50%);
+			height: 1px;
+			margin: -1px;
+			overflow: hidden;
+			padding: 0;
+			position: absolute !important;
+			width: 1px;
+			word-wrap: normal !important;
+		}
+
+		.skip-link.screen-reader-text:focus {
+			background-color: #eee;
+			clip-path: none;
+			color: #444;
+			display: block;
+			font-size: 1em;
+			height: auto;
+			left: 5px;
+			line-height: normal;
+			padding: 15px 23px 14px;
+			text-decoration: none;
+			top: 5px;
+			width: auto;
+			z-index: 100000;
+		}
+</style>
+
+<!-- 启动页 HTML -->
+<div id="preloader" style="display:none;">
+  <img src="icon/logo (2).png" alt="Loading Logo" class="preloader-logo" />
+</div>
+
+<style>
+  #preloader {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: #E3E3E3;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clip-path: circle(100% at 50% 50%);
+    transition: clip-path 1s ease;
+    cursor: none;
+    pointer-events: none;
+  }
+
+  #preloader.preloader-hide {
+    clip-path: circle(0px at var(--mouse-x, 50%) var(--mouse-y, 50%));
+  }
+
+  .preloader-logo {
+    width: 100px;
+    animation: fadeLogo 4s ease-in-out infinite;
+  }
+
+  @keyframes fadeLogo {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+</style>
+
+<script type="importmap" id="wp-importmap">
+{"imports":{"@wordpress\/interactivity":"https:\/\/www.ignoredone.space\/wp-includes\/js\/dist\/script-modules\/interactivity\/index.min.js?ver=55aebb6e0a16726baffb"}}
+</script>
+<script type="module" src="https://www.ignoredone.space/wp-includes/js/dist/script-modules/block-library/navigation/view.min.js?ver=61572d447d60c0aa5240" id="@wordpress/block-library/navigation/view-js-module"></script>
+<link rel="modulepreload" href="https://www.ignoredone.space/wp-includes/js/dist/script-modules/interactivity/index.min.js?ver=55aebb6e0a16726baffb" id="@wordpress/interactivity-js-modulepreload"><style class="wpcode-css-snippet">/* 移除 WP 默认主题给内容区域加的多余 padding */
+body, html {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 主内容容器 */
+.entry-content,
+.site-content,
+.site-main {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* 移除块编辑器默认 block-gap */
+:root {
+    --wp--style--block-gap: 0px !important;
+}
+
+/* 部分主题 wrapper 会导致上方被推开 */
+.wrap,
+.container,
+.content-area {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+</style>
+<style class="wpcode-css-snippet">/* 修复首页灰色空白 */
+body.home html {
+    margin-top: 0 !important;
+}
+</style><script>// 移除 postimg 图片的 srcset / sizes / lazyload，保证始终显示原图
+document.addEventListener("DOMContentLoaded", () => {
+  const imgs = document.querySelectorAll('img[src*="i.postimg.cc"]');
+  imgs.forEach(img => {
+    // 移除 srcset / sizes
+    img.removeAttribute("srcset");
+    img.removeAttribute("sizes");
+
+    // 禁止懒加载
+    if (img.getAttribute("loading") === "lazy") {
+      img.setAttribute("loading", "eager");
+    }
+
+    // 保证立即渲染原图
+    img.style.imageRendering = "auto";
+  });
+});
+</script><style class="wpcode-css-snippet">/* 保证 postimg 外链图片在高清屏幕显示清晰 */
+img[src*="i.postimg.cc"] {
+  image-rendering: -webkit-optimize-contrast; /* Chrome / Safari */
+  image-rendering: crisp-edges;               /* Firefox */
+  -ms-interpolation-mode: nearest-neighbor;   /* IE */
+  max-width: 100%;                            /* 响应式自适应 */
+  height: auto;                               /* 保持比例 */
+}
+
+
+</style><style class="wpcode-css-snippet">/* 隐藏所有页面的页脚（桌面端 + 移动端） */
+footer.wp-block-template-part {
+    display: none !important;
+}</style><style class="wpcode-css-snippet">/* 隐藏所有页眉 */
+header.wp-block-template-part {
+    display: none !important;
+}</style><style class="wpcode-css-snippet">/* 基本重置 */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  -webkit-overflow-scrolling: auto;
+}
+
+/* 仅在首页禁止整体纵向滚动 */
+body.home, body.home html {
+  overflow: hidden;             /* 禁止整体纵向滚动 */
+  overscroll-behavior: none;    /* 防止触摸滚动边界时的“回弹” */
+}
+
+/* wrapper 与 page 基本样式 */
+.page-wrapper {
+  display: flex;
+  height: 100vh;
+  transition: transform 0.8s ease-in-out;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: pan-y; /* 允许纵向内部滚动，但让 JS 能处理横向手势 */
+}
+
+.page {
+  flex: 0 0 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  /* 默认不强制 overflow，JS 会根据内容决定 overflowY */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 内部图片/iframe 自适应 */
+.page img, .page iframe, .page video {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+}
+
+/* --- 页码标记 --- */
+.page-marker {
+  position: absolute;
+  right: 40px;         /* 靠右 */
+  top: 50%;            /* 垂直居中 */
+  transform: translateY(-50%);
+  font-size: 4rem;
+  font-weight: bold;
+  color: rgba(0,0,0,0);
+  pointer-events: none;   /* 不影响鼠标操作 */
+  animation: breathe 2.5s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+  }
+}</style><style class="wpcode-css-snippet">/* ========== 固定透明毛玻璃页眉 ========== */
+.site-header,
+.wp-site-blocks > header {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  width: 75%;
+  background: rgba(255, 255, 255, 0.005);  /* 降低不透明度，更透 */
+  backdrop-filter: blur(100px) saturate(160%);
+  -webkit-backdrop-filter: blur(100px) saturate(160%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.005); /* 更亮的边框线 */
+}
+
+/* 避免内容被遮挡 */
+body {
+  padding-top: 0 !important;
+}
+
+/* ========== 响应式菜单初始隐藏，展开后全屏 + 毛玻璃 ========== */
+
+/* 展开前菜单隐藏 */
+.wp-block-navigation__responsive-container {
+  display: none !important;
+}
+
+/* 展开后菜单样式 */
+.wp-block-navigation__responsive-container.is-menu-open {
+  display: flex !important;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 9999;
+  padding: 2rem;
+  flex-direction: column;
+  overflow-y: auto;
+  box-sizing: border-box;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 让列表占满全屏并居中 */
+.wp-block-navigation__responsive-container ul {
+  width: 100%;
+}
+
+/* 菜单子项填满行 */
+.wp-block-navigation__responsive-container .wp-block-navigation-item {
+  width: 100%;
+}
+
+/* 子项点击正常，不受模糊影响 */
+.wp-block-navigation__responsive-container * {
+  backdrop-filter: none !important;
+}
+
+/* 动画可选 */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style><style class='wp-fonts-local'>
+@font-face{font-family:"Instrument Sans";font-style:normal;font-weight:400 700;font-display:fallback;src:url('https://www.ignoredone.space/wp-content/themes/twentytwentyfour/assets/fonts/instrument-sans/InstrumentSans-VariableFont_wdth,wght.woff2') format('woff2');}
+@font-face{font-family:"Instrument Sans";font-style:italic;font-weight:400 700;font-display:fallback;src:url('https://www.ignoredone.space/wp-content/themes/twentytwentyfour/assets/fonts/instrument-sans/InstrumentSans-Italic-VariableFont_wdth,wght.woff2') format('woff2');}
+@font-face{font-family:Jost;font-style:normal;font-weight:100 900;font-display:fallback;src:url('https://www.ignoredone.space/wp-content/themes/twentytwentyfour/assets/fonts/jost/Jost-VariableFont_wght.woff2') format('woff2');}
+@font-face{font-family:Jost;font-style:italic;font-weight:100 900;font-display:fallback;src:url('https://www.ignoredone.space/wp-content/themes/twentytwentyfour/assets/fonts/jost/Jost-Italic-VariableFont_wght.woff2') format('woff2');}
+</style>
+<style id="uagb-style-conditional-extension">@media (min-width: 1025px){body .uag-hide-desktop.uagb-google-map__wrap,body .uag-hide-desktop{display:none !important}}@media (min-width: 768px) and (max-width: 1024px){body .uag-hide-tab.uagb-google-map__wrap,body .uag-hide-tab{display:none !important}}@media (max-width: 767px){body .uag-hide-mob.uagb-google-map__wrap,body .uag-hide-mob{display:none !important}}</style><style id="uagb-style-frontend-3300">.uag-blocks-common-selector{z-index:var(--z-index-desktop) !important}@media (max-width: 976px){.uag-blocks-common-selector{z-index:var(--z-index-tablet) !important}}@media (max-width: 767px){.uag-blocks-common-selector{z-index:var(--z-index-mobile) !important}}
+</style><link rel="icon" href="icon/log o 34x34.png" sizes="32x32" />
+<link rel="icon" href="icon/logo 192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="icon/logo(2).png" />
+<meta name="msapplication-TileImage" content="icon/logo 192x192.png" />
+</head>
+
+<body class="wp-singular page-template page-template-page-no-title page page-id-3210 wp-custom-logo wp-embed-responsive wp-theme-twentytwentyfour">
+
+<div class="wp-site-blocks"><header class="wp-block-template-part">
+<div class="wp-block-group alignfull has-background-color has-white-color has-base-2-background-color has-text-color has-background has-link-color wp-elements-eb2d9070f1aa2dfb1807ca496498b039 has-global-padding is-layout-constrained wp-container-core-group-is-layout-8a37410f wp-block-group-is-layout-constrained" style="padding-top:1.2rem;padding-right:var(--wp--preset--spacing--30);padding-bottom:1.2rem;padding-left:var(--wp--preset--spacing--30)">
+<div class="wp-block-group alignwide is-content-justification-space-between is-layout-flex wp-container-core-group-is-layout-0b5f6e47 wp-block-group-is-layout-flex" style="min-height:0px;margin-top:0;margin-bottom:0;padding-top:0px;padding-bottom:0px">
+<div class="wp-block-group is-layout-flex wp-block-group-is-layout-flex"><div class="wp-block-site-logo"><a href="https://www.ignoredone.space/" class="custom-logo-link" rel="home"><img width="28" height="28" src="https://www.ignoredone.space/wp-content/uploads/2025/02/cropped-LOGO-1.png" class="custom-logo" alt="" decoding="async" srcset="https://www.ignoredone.space/wp-content/uploads/2025/02/cropped-LOGO-1.png 512w, https://www.ignoredone.space/wp-content/uploads/2025/02/cropped-LOGO-1-300x300.png 300w, https://www.ignoredone.space/wp-content/uploads/2025/02/cropped-LOGO-1-150x150.png 150w, https://www.ignoredone.space/wp-content/uploads/2025/02/cropped-LOGO-1-270x270.png 270w, https://www.ignoredone.space/wp-content/uploads/2025/02/cropped-LOGO-1-192x192.png 192w, https://www.ignoredone.space/wp-content/uploads/2025/02/cropped-LOGO-1-180x180.png 180w, https://www.ignoredone.space/wp-content/uploads/2025/02/cropped-LOGO-1-32x32.png 32w" sizes="(max-width: 28px) 100vw, 28px" /></a></div></div>
+
+
+
+<div class="wp-block-group is-layout-flex wp-block-group-is-layout-flex"><nav class="has-text-color has-contrast-color is-responsive items-justified-right wp-block-navigation is-horizontal is-content-justification-right is-layout-flex wp-container-core-navigation-is-layout-f3c1264a wp-block-navigation-is-layout-flex" aria-label="页脚 导航 3" 
+		 data-wp-interactive="core/navigation" data-wp-context='{"overlayOpenedBy":{"click":false,"hover":false,"focus":false},"type":"overlay","roleAttribute":"","ariaLabel":"\u83dc\u5355"}'><button aria-haspopup="dialog" aria-label="打开菜单" class="wp-block-navigation__responsive-container-open always-shown" 
+				data-wp-on-async--click="actions.openMenuOnClick"
+				data-wp-on--keydown="actions.handleMenuKeydown"
+			><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 5v1.5h14V5H5zm0 7.8h14v-1.5H5v1.5zM5 19h14v-1.5H5V19z" /></svg></button>
+				<div class="wp-block-navigation__responsive-container hidden-by-default has-background has-base-2-background-color"  id="modal-1" 
+				data-wp-class--has-modal-open="state.isMenuOpen"
+				data-wp-class--is-menu-open="state.isMenuOpen"
+				data-wp-watch="callbacks.initMenu"
+				data-wp-on--keydown="actions.handleMenuKeydown"
+				data-wp-on-async--focusout="actions.handleMenuFocusout"
+				tabindex="-1"
+			>
+					<div class="wp-block-navigation__responsive-close" tabindex="-1">
+						<div class="wp-block-navigation__responsive-dialog" 
+				data-wp-bind--aria-modal="state.ariaModal"
+				data-wp-bind--aria-label="state.ariaLabel"
+				data-wp-bind--role="state.roleAttribute"
+			>
+							<button aria-label="关闭菜单" class="wp-block-navigation__responsive-container-close" 
+				data-wp-on-async--click="actions.closeMenuOnClick"
+			><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="m13.06 12 6.47-6.47-1.06-1.06L12 10.94 5.53 4.47 4.47 5.53 10.94 12l-6.47 6.47 1.06 1.06L12 13.06l6.47 6.47 1.06-1.06L13.06 12Z"></path></svg></button>
+							<div class="wp-block-navigation__responsive-container-content" 
+				data-wp-watch="callbacks.focusFirstElement"
+			 id="modal-1-content">
+								<ul class="wp-block-navigation__container has-text-color has-contrast-color is-responsive items-justified-right wp-block-navigation"><li class=" wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="https://www.ignoredone.space/index.php/answer/"><span class="wp-block-navigation-item__label">· 新手入门</span></a></li><li class=" wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="https://www.ignoredone.space/index.php/freeproject"><span class="wp-block-navigation-item__label">·免费内容</span></a></li><li class=" wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="https://www.ignoredone.space/index.php/ignoredone-project/"><span class="wp-block-navigation-item__label">· 学习工程</span></a></li><li class=" wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="https://www.ignoredone.space/index.php/article-arrangement/"><span class="wp-block-navigation-item__label">· 图文教程</span></a></li><li class=" wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="https://www.ignoredone.space/index.php/graphic-design-arknights/"><span class="wp-block-navigation-item__label">· 学方舟做设计</span></a></li><li class=" wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="https://www.ignoredone.space/index.php/resource/"><span class="wp-block-navigation-item__label">· 明日方舟美术资源共享</span></a></li><li class=" wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="https://www.ignoredone.space/index.php/portfolio/"><span class="wp-block-navigation-item__label">· 作品库</span></a></li></ul>
+							</div>
+						</div>
+					</div>
+				</div></nav></div>
+</div>
+</div>
+</header>
+
+
+<main class="wp-block-group has-base-2-background-color has-background is-layout-flow wp-block-group-is-layout-flow" style="margin-top:0"><div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
+<div class="wp-block-group alignfull is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-7a773ee2 wp-block-group-is-layout-flex" style="padding-right:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>交互体验</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&#038;display=swap" rel="stylesheet">
+  <style>
+    /* 全局样式 */
+    body {
+      margin: 0;
+      background-color: #ffffff;
+      color: #555;
+      font-family: "Inter", "Noto Sans SC", sans-serif;
+      overflow: hidden;
+    }
+
+    .timeline-container {
+      display: flex;
+      height: 100vh;
+      width: 100%;
+    }
+
+    .timeline-left {
+      width: 25%;
+      background-color: #FFF3D7;
+      position: relative;
+    }
+
+    .timeline-textbox {
+      position: absolute;
+      bottom: 5%;
+      left: 25%;
+      text-align: left
+      transition: transform 0.3s ease;
+    }
+    /* 当宽度 ≤ 1400px 开始逐渐缩放 */
+    @media (max-width: 1400px) {
+      .timeline-textbox {
+        transform: scale(0.9);
+      }
+    }
+
+    /* 当宽度 ≤ 1200px 进一步缩小 */
+    @media (max-width: 1200px) {
+      .timeline-textbox {
+        transform: scale(0.9);
+      }
+    }
+
+    /* 当宽度 ≤ 1000px 时更紧凑 */
+    @media (max-width: 1000px) {
+      .timeline-textbox {
+        transform: scale(0.9);
+      }
+    }
+
+
+    /* 当宽度 ≤ 800px 时再缩小 */
+    @media (max-width: 800px) and (min-width: 601px) {
+      .timeline-textbox {
+        transform: scale(0.8);
+      }
+    }
+    .timeline-name {
+      font-family: "Outfit", "Inter", "Noto Sans SC", sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: #423422;
+      letter-spacing: 0.25px;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .timeline-subtitle {
+      font-family: "Inter", "Noto Sans SC", sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #888;
+      margin-top: 0.65px;
+    }
+
+    .timeline-right {
+      width: 75%;
+      height: 100vh;
+      overflow-y: auto;
+      background-color: #FFF3D7;
+      padding: 60px 60px;
+      box-sizing: border-box;
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 40px;
+      padding: 0 10px;
+      flex-wrap: wrap;
+    }
+
+    .timeline-header-text {
+      display: flex;
+      flex-direction: column;
+      max-width: 75%;
+    }
+
+    .timeline-tip {
+      font-family: "Outfit", "Inter", "Noto Sans SC", sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #423422;
+      margin: 0 0 10px 0;
+      letter-spacing: 0.5px;
+    }
+
+    .timeline-description {
+      font-family: "Inter", "Noto Sans SC", sans-serif;
+      font-size: 1rem;
+      color: #777;
+      line-height: 1.75;
+      margin: 0;
+      letter-spacing: 0.3px;
+      text-align: justify;
+      max-width: 1200px;
+    }
+
+    .timeline-logo {
+      width: 5%;
+      height: auto;
+      object-fit: contain;
+      opacity: 0.85;
+      transition: opacity 0.3s ease;
+      min-width: 60px;
+    }
+
+    .timeline-logo:hover {
+      opacity: 1;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .timeline-image {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;   /*  强制固定宽高比 */
+      border-radius: 5px;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .timeline-image.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .timeline-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;         /* 中心裁切放大填满容器 */
+      object-position: center;   /* 以中心为对齐基准 */
+      display: block;
+      border-radius: 5px;
+      transition: transform 0.3s ease;
+    }
+
+    .timeline-image img:hover {
+      transform: scale(1.05);
+    }
+
+    .timeline-image.wide {
+      grid-column: span 2;   /* 宽图占两列 */
+      aspect-ratio: auto;    /* 宽图保持原比例 */
+    }
+
+    .timeline-image.wide img {
+      object-fit: contain;   /* 宽图不裁切，完整显示 */
+    }
+
+    /*  毛玻璃下载按钮 */
+    .download-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      z-index: 5;
+    }
+
+    .download-btn img {
+      width: 20px;
+      height: 20px;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+
+    .download-btn:hover {
+      background: rgba(255, 255, 255, 0.6);
+      transform: scale(1.1);
+    }
+
+    .download-btn:hover img {
+      opacity: 1;
+    }
+
+    /* 保证 grid 可以自动流式排列 */
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      grid-auto-flow: row dense; /*自动补位关键属性 */
+    }
+
+  </style>
+</head>
+
+
+<body>
+  <div class="timeline-container">
+    <div class="timeline-left">
+      <div class="timeline-textbox">
+        <h1 class="timeline-name">交互体验</h1>
+        <p class="timeline-subtitle">莫要哭 莫要怕 穿过麦田就到家</p>
+      </div>
+    </div>
+
+    <div class="timeline-right">
+      <div class="timeline-header">
+        <div class="timeline-header-text">
+          <h2 class="timeline-tip">&#8220;如果在秋日，一个归乡人…&#8221;</h2>
+          <p class="timeline-description">
+            忘记我也没有关系，我准备了你小时候喜欢玩的游戏。<br>
+			麦子熟了五千次，王朝兴替如烟，前世今生对于你来说都太远。我们这一刻就靠在一起好吗？
+          </p>
+        </div>
+        <img decoding="async"
+          class="timeline-logo"
+          src="icon/logo (2).png"
+          alt="Shi Xiang Sheng Logo"
+        />
+      </div>
+
+      <div id="timeline"></div>
+    </div>
+  </div>
+
+ <script>
+    // 来到了本次作业最大的屎山部分，
+	// 以下是图片和下载数组但有bug不稳定，换了压缩包/百度网盘链接/以及改成点击跳转的方式都试过了,都不能完全规避……燃尽了来不及了就先这样吧
+	
+	// 第一个游戏已经内置到网页里了，就是game.html
+	
+	// 第二个游戏是AR,先扫图片上的小程序码在用小程序的相机扫海报画面,有一个动态的文字AR柳树,本来这个也想单独做一个页面,
+	// 但是六点要交作业这会我bug还没修完实在来不及了
+	
+	// 第三个是之前做的H5游戏，直接的灵感来源，且这个作品有一小部分素材就是来源于这里，如果有时间的话推荐微信扫码玩一下！
+	
+    const timelineData = [
+      { 
+        image: "art/游戏示例.png", 
+        download: "game.html"
+      },
+      { 
+        image: "art/交互游戏，请扫码.png", 
+        download: "https://pan.baidu.com/s/1jEmWTQshDD_A_R_zrdNukA?pwd=liax"
+      },
+      { 
+        image: "AR/AR文字柳树引导图.png", 
+        download: "https://pan.baidu.com/s/1jEmWTQshDD_A_R_zrdNukA?pwd=liax"
+      },
+     
+    ];
+
+    const timeline = document.getElementById("timeline");
+
+    // 不再按两张分组，而是整个时间轴一个 grid
+    const gridDiv = document.createElement("div");
+    gridDiv.className = "timeline-grid";
+    timeline.appendChild(gridDiv);
+
+    timelineData.forEach((item) => {
+      const imgDiv = document.createElement("div");
+      imgDiv.className = "timeline-image";
+      imgDiv.innerHTML = `
+        <img decoding="async" loading="lazy" src="${item.image}" alt="Timeline Image">
+        <a class="download-btn" href="${item.download}" download>
+          <img decoding="async" src="icon/left.png" alt="Download">
+        </a>
+      `;
+      gridDiv.appendChild(imgDiv);
+    });
+
+    /* 懒加载 + 动画 */
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    /* 检测图片比例并动态加宽 */
+    document.querySelectorAll(".timeline-image img").forEach((img) => {
+      img.addEventListener("load", () => {
+        const ratio = img.naturalWidth / img.naturalHeight;
+        if (ratio > 1.6) {
+          img.parentElement.classList.add("wide");
+        }
+        observer.observe(img.parentElement);
+      });
+    });
+  </script>
+</body>
+</html>
+</div>
+<p></p>
+</div></main>
+
+
+<<footer class="wp-block-template-part">
+<div class="wp-block-group has-base-2-color has-contrast-background-color has-text-color has-background has-link-color wp-elements-7d958552883cd7fa22c7ee683f7ae4cd has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50)">
+<div class="wp-block-columns alignwide is-layout-flex wp-container-core-columns-is-layout-28f84493 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:30%">
+	
+<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-is-layout-fe9cc265 wp-block-group-is-layout-flex">
+	<div class="wp-block-site-logo"><a href="#" class="custom-logo-link" rel="home">
+	<img width="20" height="20" src="icon/logo(2).png" class="custom-logo" 
+	alt="" decoding="async" srcset="icon/logo(2).png"
+	 sizes="(max-width: 20px) 100vw, 20px" /></a></div>
+
+
+<div class="wp-block-site-logo">
+	<a href="#" class="custom-logo-link" rel="home">
+		<img width="35" height="35" src="icon/logo(2).png" class="custom-logo"
+		 alt="" decoding="async" srcset="icon/logo(2).png"
+		   sizes="(max-width: 35px) 100vw, 35px" /></a></div>
+
+
+<p class="wp-elements-b003472f29a3f7602a6749ae5d30de4b wp-block-site-tagline has-text-color has-base-color has-medium-font-size">莫要哭 莫要怕 穿过麦田就到家</p></div>
+</div>
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:20%"></div>
+
+</nav></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer></div>
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","\/wp-content\/uploads\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/twentytwentyfour\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<!-- 自定义光标 HTML -->
+<div id="custom-cursor" class="custom-cursor"></div>
+
+<style>
+  /* 默认隐藏系统光标 */
+  @media (pointer: fine) {
+    *:not(input):not(textarea):not(.custom-cursor),
+    *:not(input):not(textarea):not(.custom-cursor)::before,
+    *:not(input):not(textarea):not(.custom-cursor)::after {
+      cursor: none !important;
+    }
+
+    #custom-cursor {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background-color: #E3E3E3;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      z-index: 999999;
+      opacity: 1;
+      mix-blend-mode: normal;
+    }
+
+    #custom-cursor.active {
+      transform: translate(-50%, -50%) scale(0.8);
+      background-color: #999;
+    }
+  }
+
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 检查是否是桌面端（pointer: fine）
+    const isDesktop = window.matchMedia("(pointer: fine)").matches;
+    if (!isDesktop) return;
+
+    const cursor = document.getElementById("custom-cursor");
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    if (cursor) {
+      cursor.style.left = mouseX + "px";
+      cursor.style.top = mouseY + "px";
+
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursor.style.left = mouseX + "px";
+        cursor.style.top = mouseY + "px";
+      });
+
+      document.addEventListener("mousedown", () => {
+        cursor.classList.add("active");
+      });
+
+      document.addEventListener("mouseup", () => {
+        cursor.classList.remove("active");
+      });
+    }
+  });
+</script>
+
+
+
+<script>
+  const startTime = Date.now(); // 记录启动时间
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const preloader = document.getElementById("preloader");
+
+    // 只在首页执行启动页动画，判断条件：
+    // 严格等于 首页/（末尾带斜杠）
+    if (window.location.href === "# ") {
+      // 显示启动页
+      preloader.style.display = "flex";
+
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+
+      // 监听鼠标移动，更新圆形蒙版的位置
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      window.addEventListener("load", () => {
+        const elapsed = Date.now() - startTime;
+        const minDuration = 500; // 启动页最短显示时间（ms）
+        const delay = elapsed < minDuration ? (minDuration - elapsed) : 0;
+
+        setTimeout(() => {
+          preloader.style.transition = "clip-path 1s ease";
+          preloader.style.clipPath = `circle(0px at ${mouseX}px ${mouseY}px)`;
+
+          // 动画结束后隐藏启动页容器
+          preloader.addEventListener("transitionend", () => {
+            preloader.style.display = "none";
+          }, { once: true });
+        }, delay);
+      });
+    } else {
+      // 非首页隐藏启动页，避免影响页面
+      preloader.style.display = "none";
+    }
+  });
+</script>
+
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        var backButton = document.getElementById('mobile-back-button');
+
+        backButton.addEventListener('click', function() {
+            if (document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
+                window.history.back();
+            } else {
+                window.location.href = '#';
+            }
+        });
+
+        backButton.addEventListener('touchstart', function() {
+            this.style.transform = 'scale(1.1)';
+        });
+        backButton.addEventListener('touchend', function() {
+            this.style.transform = 'scale(1)';
+        });
+
+    });
+    </script>
+
+      <style>
+    /* 白色过场遮罩 */
+    .page-transition {
+      position: fixed;
+      inset: 0;
+      background-color: #fff;
+      z-index: 9999;
+      opacity: 1;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+    .page-transition.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* 页面淡入动画 */
+    body.fade-in {
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    body.fade-in.visible {
+      opacity: 1;
+    }
+  </style>
+
+  <div class="page-transition" id="page-transition"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const overlay = document.getElementById("page-transition");
+      const body = document.body;
+
+      // 页面加载完后淡出白幕 + 淡入内容
+      requestAnimationFrame(() => {
+        overlay.classList.add("hidden");
+        body.classList.add("visible");
+      });
+
+      // 页面跳转时再显示白幕
+      document.querySelectorAll("a").forEach(link => {
+        const url = link.getAttribute("href");
+        if (url && !url.startsWith("#") && !url.startsWith("mailto:") && !url.startsWith("tel:")) {
+          link.addEventListener("click", e => {
+            // 打开新标签页或外链不触发动画
+            if (e.metaKey || e.ctrlKey || link.target === "_blank") return;
+            e.preventDefault();
+
+            overlay.classList.remove("hidden");
+
+            // 默认白幕持续时间 0.6s
+            let delay = 600;
+
+            // 特定页面延长至 2s
+            const targetUrl = "https://www.ignoredone.space/index.php/resource/";
+            if (url === targetUrl || url.endsWith("/index.php/resource/")) {
+              delay = 2000;
+            }
+
+            // 移动端强制 3s
+            if (isMobile) {
+              delay = 3000;
+            }
+
+            setTimeout(() => {
+              window.location.href = url;
+            }, delay);
+          });
+        }
+      });
+
+      // 页面初始时淡入效果
+      body.classList.add("fade-in");
+      setTimeout(() => body.classList.add("visible"), 50);
+    });
+  </script>
+    <style>
+  /* 桌面端顶部毛玻璃页眉 */
+  .custom-header {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25%;
+    max-width: 1100px;
+    height: 45px;
+    background: rgba(225, 225, 225, 0.5);
+    backdrop-filter: blur(12px);
+    border-radius: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 18px;
+    z-index: 9998;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.07);
+  }
+
+  .custom-header .logo img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .custom-header .menu-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  .custom-header .menu-btn img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
+
+  /* ===== 弹窗 ===== */
+  .custom-popup {
+    position: fixed;
+    top: 12%;
+    right: calc(50% - 12.5%);
+    width: 200px;
+    background: rgba(225, 225, 225, 0.5);
+    backdrop-filter: blur(12px);
+    border-radius: 14px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.07);
+    padding: 12px 0;
+    display: none;
+    z-index: 9998;
+  }
+  .custom-popup.show {
+    display: block;
+    animation: fadeInUp 0.25s ease-in-out;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .custom-popup .iq-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  .custom-popup .iq-list a {
+    display: inline-block;
+    padding: 4px 30px;
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 1.2;
+    color: #333;
+    border-radius: 6px;
+    transition: background 0.3s;
+    text-align: center;
+  }
+  .custom-popup .iq-list a:hover { background: rgba(255,255,255,0.7); }
+  .custom-popup .subtitle {
+    display: block;
+    font-size: 12px;
+    color: #666;
+  }
+
+  </style>
+
+    <style>
+    /* 特定页面样式覆盖 */
+    .custom-header {
+      left: 2.5% !important;
+      transform: none !important;
+      width: 12% !important;
+    }
+    .custom-popup {
+      top: 12%;
+      left: 3.5%;
+      width: 200px;
+    }
+
+  </style>
+  
+  <!-- 悬浮导航栏 -->
+<div class="custom-header">
+    <div class="logo">
+      <a href="a">
+        <img src="icon/logo (2).png" alt="Logo">
+      </a>
+    </div>
+    <button class="menu-btn" id="menuToggle">
+      <img src="icon/menu.png" alt="Menu">
+    </button>
+  </div>
+
+  <!--  弹窗  -->
+  <div class="custom-popup" id="popupMenu">
+      <ul class="iq-list">
+          <li><a href="1.html" target="_blank">守望石像<span class="subtitle">文物简介</span></a></li>
+          <li><a href="2.html" target="_blank">麦田对话<span class="subtitle">它的过去…？</span></a></li>
+          <li><a href="3.html" target="_blank">衍生设计<span class="subtitle">我的朋友石像生</span></a></li>
+          <li><a href="4.html" target="_blank">互动体验<span class="subtitle">如果在秋日&nbsp;一个归乡人</span></a></li>
+          <li><a href="5.html" target="_blank">麦田来信<span class="subtitle">爱你朋友&nbsp;明天见</span></a></li>
+  		  <li><a href="game.html" target="_blank">一起玩吧！<span class="subtitle">不必做赢家&nbsp;玩家也很好</span></a></li>
+      </ul>
+  </div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 移动端不执行悬浮栏相关代码
+    if (window.innerWidth <= 768) return;
+    
+    const popup = document.getElementById("popupMenu");
+    const desktopBtn = document.getElementById("menuToggle");
+
+    const toggleMenu = (e) => {
+      e.stopPropagation();
+      popup.classList.toggle("show");
+    };
+
+    if (desktopBtn) desktopBtn.addEventListener("click", toggleMenu);
+
+    // 点击外部关闭
+    document.addEventListener("click", (e) => {
+      if (!popup.contains(e.target) && !e.target.closest("#menuToggle")) {
+        popup.classList.remove("show");
+      }
+    });
+  });
+  </script>
+  <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互动体验</title>
+    <style>
+        body {
+            margin: 0;
+            padding-bottom: 70px; /* 为固定导航栏留出空间 */
+            -webkit-overflow-scrolling: touch; /* 确保平滑滚动 */
+        }
+        
+            /* 毛玻璃核心样式 */
+            background: rgba(225, 225, 225, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            z-index: 2;
+            padding-top: 5px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-item img {
+            width: 15px;
+            height: 15px;
+            margin-bottom: 0px;
+            transition: 0.25s ease;
+        }
+
+        .nav-item span {
+            font-size: 12px;
+            font-weight: 900;
+            transition: 0.25s ease;
+			color:#787878;
+		}
+		
+    </style>
+</head>
+</html>
+</body>
+</html>

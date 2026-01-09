@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>麦田来信</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            color: #423422;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('art/art5.png') no-repeat center center;
+            background-size: cover;
+            min-height: 100vh; 
+			transform: scale(0.6);
+			transform-origin: top center;
+        }
+
+        .messages {
+            margin-top: 50px; /* 调整顶部间距 */
+            width: 900px; 
+            padding: 30px 60px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: linear-gradient(
+                to right bottom,
+                rgba(255,255,255,.6),
+                rgba(255,255,255,.3),
+                rgba(255,255,255,.2)
+            );
+            background-color: rgba(255, 255, 255, 0.266);
+            border-radius: 40px;
+            box-shadow: 0 10px 50px #00000019;
+            margin-bottom: 20px;
+        }
+
+        .form {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            flex-direction: column;
+            width: 100%;
+            padding-bottom: 50px;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+        }
+
+        input,
+        textarea {
+            border: none;
+            color: #423422; 
+            margin-bottom: 40px;
+            font: 900 40px ''; 
+            padding: 20px; 
+            background: rgba(255,214,142,0.2); 
+        }
+
+        #username {
+            height: 70px; 
+        }
+
+        #message {
+            height: 150px; 
+        }
+
+        .messages h1 {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 50px;
+            font-size: 80px; 
+            background-image: linear-gradient(135deg, #85B5A1 0%, #FFE79D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 8px;
+        }
+
+        .form-btn-group {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            gap: 40px; 
+        }
+
+        #submitBtn, #resetBtn {
+            background-color: #E8D0A9; 
+            background-image: none;
+            border: none;
+            font-size: 35px;
+            letter-spacing: 5px;
+            width: 200px; 
+            height: 70px; 
+            border-radius: 50px;
+            color: #423422; 
+            cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		#submitBtn:hover, #resetBtn:hover {
+			transform: scale(1.05); /* 放大 */
+			box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+			opacity: 0.95; /* 透明 */
+		}
+
+        #messageBoard {
+            width: 100%;
+            text-align: left;
+        }
+
+        @keyframes messageFadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .message {
+            width: 100%;
+            margin: 10px;
+            padding: 10px;
+            opacity: 0;
+            animation: messageFadeIn 0.5s ease forwards;
+            background-image:url('art/art1.png');
+            background-color: #FFF3D7;
+            margin: 50px 0; /* 留言项间距 */
+            border-radius: 10px;
+            box-shadow: 0 10px 20px #00000026;
+            text-shadow: 0px 0px 20px #ffffff;
+        }
+
+        .message-info {
+            height: 80px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 28px; 
+            position: relative;
+        }
+
+        .info {
+            transform: translateY(-20px); 
+        }
+
+        .info img {
+            width: 100px; 
+            height: 100px;
+            border-radius: 50%;
+            border: 8px #fff solid;
+        }
+
+        strong {
+            position: absolute;
+            width: 600px; /* 用户名宽度 */
+            letter-spacing: 3px;
+            top: 50px; /* 用户名位置 */
+            left: 120px; 
+        }
+
+        .message-info span {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .content {
+            font-size: 36px; 
+            margin: 20px; 
+            width: 95%;
+        }
+		.h1{
+		font-family: "SimHei", "Heiti SC", sans-serif;
+		}
+        .btn-group {
+            position: fixed;
+            bottom: 80px;
+            right: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 999;
+        }
+
+        .back-btn, .top-btn {
+            background-color:#E8D0A9;
+			color: #423422;
+            border: none;
+            font-size: 0px;
+            letter-spacing: 5px;
+            width: 400px;
+            height: 70px;
+            border-radius: 50px;
+            
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: "SimHei", "Heiti SC", sans-serif; /* 黑体 */
+        }
+
+        .back-btn:hover, .top-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            opacity: 0.95;
+        }
+		.action-btn-group {
+		        width: 100%;
+		        display: flex;
+		        justify-content: flex-end;
+		        gap: 40px;
+		        margin-top: 20px;
+		    }
+		
+		    .back-btn, .top-btn {
+		        background-color:#FFF3D7;
+		        color: #423422;
+		        border: none;
+		        font-size: 35px;
+		        letter-spacing: 5px;
+		        width: 400px;
+		        height: 70px;
+		        border-radius: 50px;
+		        cursor: pointer;
+		        transition: all 0.3s ease;
+		        font-family: "SimHei", "Heiti SC", sans-serif;
+		    }
+		
+		    .back-btn:hover, .top-btn:hover {
+		        transform: scale(1.05);
+		        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+		        opacity: 0.95;
+		    }
+		</style>
+    </style>
+</head>
+<!-- 标签页LOGO -->
+<style id="uagb-style-conditional-extension">@media (min-width: 1025px)
+{body .uag-hide-desktop.uagb-google-map__wrap,body .uag-hide-desktop{display:none !important}}
+@media (min-width: 768px) and (max-width: 1024px)
+{body .uag-hide-tab.uagb-google-map__wrap,body .uag-hide-tab{display:none !important}}
+@media (max-width: 767px){body .uag-hide-mob.uagb-google-map__wrap,body .uag-hide-mob{display:none !important}}
+</style>
+<style id="uagb-style-frontend-0">.uag-blocks-common-selector{z-index:var(--z-index-desktop) !important}
+@media (max-width: 976px){.uag-blocks-common-selector{z-index:var(--z-index-tablet) !important}}
+@media (max-width: 767px){.uag-blocks-common-selector{z-index:var(--z-index-mobile) !important}}
+</style><link rel="icon" href="icon/log o 34x34.png" sizes="32x32" />
+<link rel="icon" href="icon/logo 192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="icon/logo 192x192.png.png" />
+<meta name="msapplication-TileImage" content="icon/logo 192x192.png" />
+</head>
+<body>
+    <div class="home-wrapper">
+    <div class="messages">
+        <h1>留言板</h1>
+        <div class="form">
+            <input type="text" id="username" placeholder="用户名">
+            <textarea placeholder="留言内容" id="message"></textarea>
+            
+            <div class="form-btn-group">
+                <button id="submitBtn">留言</button>
+                <button id="resetBtn">重置</button>
+            </div>
+        </div>
+        <div id="messageBoard">
+            <div class="message">
+                <div class="message-info">
+                    <div class="info">
+                        <img src="art/文臣.png" alt="头像">
+                        <strong>文臣</strong>
+                    </div>
+                    <span>发布于:1453/11/07 08:00:00</span>
+                </div>
+                <div class="content">
+                   告诉你一个秘密，甪端这尊狮形龙背雕塑其实并非石头，但后人好多都一概而论叫它「石狮子」。甪端其实并不喜欢这个称呼，它觉得这样叫显得它与外面的便宜货似乎毫无差别，很掉价，哈哈。
+                </div>
+				</div>
+				<div class="message">
+				    <div class="message-info">
+				        <div class="info">
+				            <img src="art/虎.png" alt="头像">
+				            <strong>青镞</strong>
+				        </div>
+				        <span>发布于:1677/1/07 08:00:00</span>
+				    </div>
+				    <div class="content">
+				     其实每一尊石像生都有自己的名字。它们遵守古老的中华武德，会在行礼或战斗前向对手报名致意——但如今通晓其名的活人已是屈指可数了。
+				    </div>
+            </div>
+            <div class="message">
+                <div class="message-info">
+                    <div class="info">
+                        <img src="art/客使.png" alt="头像">
+                        <strong>客使·天舶</strong>
+                    </div>
+                    <span>发布于:1879/11/07 08:00:00</span>
+                </div>
+                <div class="content">
+                    往返费用，十取其九。掮客的生意终归只是左手转右手。常言道，『大商无算』。于人有利，方能于己谋利。只要小友主认可，我想换得一纸…咳，一朋长久契约，如何？
+                </div>
+			</div>
+			<div class="message">
+			    <div class="message-info">
+			        <div class="info">
+			            <img src="art/象.png" alt="头像">
+			            <strong>天衡</strong>
+			        </div>
+			        <span>发布于:1285/1/07 08:00:00</span>
+			    </div>
+			    <div class="content">
+			     我们这类石像生的四肢一般都隐藏在柱中。只有两种人能有幸见到我们的四肢——负责定期维护的工造司匠人，以及进犯神策府的狂妄宵小。小友，你属于哪一类？
+			    </div>
+			</div>
+            <div class="message">
+                <div class="message-info">
+                    <div class="info">
+                        <img src="art/狮子.png" alt="头像">
+                        <strong>朔雪</strong>
+                    </div>
+                    <span>发布于:936/11/29 08:00:00</span>
+                </div>
+                <div class="content">
+                 我是神策府的守门石狮朔雪，时速高达每时辰一千二百里，喜欢浸过猫草汤的毛线团。但最好不要带这东西来神策府，你有一定概率被撞去异世界。
+                </div>
+            </div>
+			<div class="message">
+			    <div class="message-info">
+			        <div class="info">
+			            <img src="art/甪端.png" alt="头像">
+			            <strong>甪端</strong>
+			        </div>
+			        <span>发布于:2026/1/9 08:00:00</span>
+			    </div>
+			    <div class="content">
+			      <b><i>--很久之后的某天，你发现石狮子的底座上早已沉积了一层厚厚的灰尘，下面隐约有一行小字。你将尘埃拂去，看到了那行娟秀的篆刻—— 「朔雪在此长眠。忠骨带铜声。」</i></b>
+			    </div>
+			</div>
+        </div>
+		<div class="action-btn-group">
+		    <button class="back-btn">返回首页</button>
+		    <button class="top-btn">回到顶部</button>
+		</div>
+    </div>
+	</div>
+
+
+<script>
+    // 添加点击事件监听器
+    document.getElementById('submitBtn').addEventListener('click', function () {
+        // 获取用户名和留言内容
+        var username = document.getElementById('username').value;
+        var message = document.getElementById('message').value;
+        // 如果留言内容为空，弹出提示并返回
+        if (message === '') {
+            alert('请输入内容');
+            return;
+        }
+        // 如果用户名为空，将用户名设置为匿名
+        if (username === '') {
+            username = '匿名';
+        }
+        // 获取留言板元素和当前时间
+        var messageBoard = document.getElementById('messageBoard');
+        var newMessage = document.createElement('div');
+        newMessage.classList.add('message');
+        // 用户名、时间和留言内容
+        newMessage.innerHTML = '<div class="message-info"><div class="info"><img src="1.jpg"><strong>'
+            + username + '</strong></div><span>发布于：' + getCurrentTime() +
+            '</span></div><div class="content">' + message + '</div>';
+        // 在留言板的第一个子元素之前插入新的留言
+        messageBoard.insertBefore(newMessage, messageBoard.firstChild);
+        // 清空用户名和留言内容的输入框
+        document.getElementById('username').value = '';
+        document.getElementById('message').value = '';
+    });
+
+    // 新增重置按钮功能
+    document.getElementById('resetBtn').addEventListener('click', function () {
+        document.getElementById('username').value = '';
+        document.getElementById('message').value = '';
+    });
+
+    // 获取当前时间的函数
+    function getCurrentTime() {
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = ('0' + (now.getMonth() + 1)).slice(-2);
+        var day = ('0' + now.getDate()).slice(-2);
+        var hours = ('0' + now.getHours()).slice(-2);
+        var minutes = ('0' + now.getMinutes()).slice(-2);
+        var seconds = ('0' + now.getSeconds()).slice(-2);
+        return year + '/' + month + '/' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+    }
+
+    document.querySelector('.top-btn').addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // 平滑滚动到顶部
+        });
+    });
+	document.querySelector('.back-btn').addEventListener('click', function() {
+	    window.location.href = 'index.html'; 
+	});
+</script>
+</body>
+</html>

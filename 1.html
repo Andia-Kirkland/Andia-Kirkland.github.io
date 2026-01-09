@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文物简介</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 200vh;
+            overflow-x: hidden;
+        }
+
+        
+        .back-btn {
+            position: fixed; /* 悬浮固定 */
+            top: 20px; 
+            left: 20px; 
+            width: 40px; 
+            height: 40px;
+            border-radius: 50%; /* 圆形 */
+            background-color: #E8D0A9; 
+            color: #423422; 
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9999; /* 确保在最上层 */
+            text-decoration: none; 
+            transition: all 0.3s ease; 
+        }
+
+        .back-btn:hover {
+            background-color: #423422; 
+            color: #E8D0A9; 
+            transform: scale(1.1); 
+            box-shadow: 0 0 10px rgba(0,0,0,0.3); 
+        }
+		.arrow-img {
+		    width: 30px;    
+		    height: 30px;   
+		    object-fit: contain; /* 保证图片比例不变形 */
+		}
+
+        .background {
+            background-image: url("art/pg1.png");
+            background-size: cover;
+            background-position: 50% 50%;
+            height: 200vh;
+            font: 160 20rem '';
+            line-height: 130vh;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .background::before {
+            content: '';
+            background-size: cover;
+            background-image: inherit;
+            background-position: 50% 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: -99;
+        }
+		/* 在这里卡了，不知道为啥篆体就是加载不出来，自己的字体和系统的篆体都试了都不太行，所以最后在页面上还是用的黑体，很丑，，， */
+		@font-face {
+			font-family: 'HanYiZhuanShuFan';
+			src: url('font/HanYiZhuanShuFan.ttf')format('truetype');
+		}
+
+        h1 {
+            position: absolute;
+            text-align: center;
+            width: 100%;
+			font-size: 60px; 
+            letter-spacing: 10px;
+            color: #423422;
+			font-family: "STZhongsong", "SimSun", serif;
+        }
+
+        h2 {
+            position: absolute;
+            letter-spacing: 2px;
+            top: 120vh;
+            width: 60%;
+            color: #FFF3D7;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 30px;
+            background-color: rgba(0, 0, 0, .5);
+			margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<!-- 自适应标签页LOGO -->
+<style id="uagb-style-conditional-extension">
+@media (min-width: 1025px)
+{body .uag-hide-desktop.uagb-google-map__wrap,body .uag-hide-desktop{display:none !important}}
+@media (min-width: 768px) and (max-width: 1024px)
+{body .uag-hide-tab.uagb-google-map__wrap,body .uag-hide-tab{display:none !important}}
+@media (max-width: 767px){body .uag-hide-mob.uagb-google-map__wrap,body .uag-hide-mob{display:none !important}}
+</style>
+<style id="uagb-style-frontend-0">.uag-blocks-common-selector{z-index:var(--z-index-desktop) !important}
+@media (max-width: 976px){.uag-blocks-common-selector{z-index:var(--z-index-tablet) !important}}
+@media (max-width: 767px){.uag-blocks-common-selector{z-index:var(--z-index-mobile) !important}}
+</style><link rel="icon" href="icon/log o 34x34.png" sizes="32x32" />
+<link rel="icon" href="icon/logo 192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="icon/logo 192x192.png.png" />
+<meta name="msapplication-TileImage" content="icon/logo 192x192.png" />
+</head>
+
+<body>
+ 
+
+
+    <h1>河南 · 巩义<br/>宋陵石像生</h1>
+    <div class="background"><span>GONGYI</span></div>
+    <h2>
+        <b><i>----“嘿，小友！我已在此等你一千六百年。”<br><br></i></b>
+        &nbsp;&nbsp;&nbsp;&nbsp;当巩义的麦浪再次翻涌成金，你听到宋陵的石像生们在风中低语。伫立于皇天后土间，它们看过麦穗青了又黄五千年；守过王朝更迭、战火烽烟，它们也等来今日的收割机轰鸣与游人笑谈。<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;跟着石像生，你们一起触摸这片土地的故事：摩挲石刻粗糙的纹理，和它们交朋友；你想为这些古老的生命遮风挡雨，它却答粗糙斑驳的纹理也是守望的证明。麦子熟了五千次，王朝兴替如烟，多少人来了又走，只有这片土地和它的守望者，让石刻和庄稼一起生长，和这片土地一起呼吸。<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;此刻，站在麦浪里，你是这绵长故事的续篇。<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;石像生沉默而温柔地望着你。<br>&nbsp;&nbsp;&nbsp;&nbsp;我的朋友，还请常回来看看。
+    </h2>
+
+    <script>
+        const background = document.querySelector(".background")
+
+        document.addEventListener('scroll', () => {
+            const scrollY = window.scrollY
+
+            if (scrollY !== 0) {
+                background.style.backgroundPosition = `calc(50% + ${scrollY}px) calc(50% + ${scrollY}px)`
+            }else{
+                background.style.backgroundPosition = ''
+            }
+        })
+    </script>
+</body>
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","\/wp-content\/uploads\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/twentytwentyfour\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<!-- 自定义光标 HTML-->
+<div id="custom-cursor" class="custom-cursor"></div>
+
+<style>
+  /* 默认隐藏系统光标 */
+  @media (pointer: fine) {
+    *:not(input):not(textarea):not(.custom-cursor),
+    *:not(input):not(textarea):not(.custom-cursor)::before,
+    *:not(input):not(textarea):not(.custom-cursor)::after {
+      cursor: none !important;
+    }
+ 
+    #custom-cursor {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background-color: #E3E3E3;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      z-index: 999999;
+      opacity: 1;
+      mix-blend-mode: normal;
+    }
+
+    #custom-cursor.active {
+      transform: translate(-50%, -50%) scale(0.8);
+      background-color: #999;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 检查是否是桌面端（pointer: fine）
+    const isDesktop = window.matchMedia("(pointer: fine)").matches;
+    if (!isDesktop) return;
+
+    const cursor = document.getElementById("custom-cursor");
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    if (cursor) {
+      cursor.style.left = mouseX + "px";
+      cursor.style.top = mouseY + "px";
+
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursor.style.left = mouseX + "px";
+        cursor.style.top = mouseY + "px";
+      });
+
+      document.addEventListener("mousedown", () => {
+        cursor.classList.add("active");
+      });
+
+      document.addEventListener("mouseup", () => {
+        cursor.classList.remove("active");
+      });
+    }
+  });
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const btn = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 300) {
+        btn.style.display = 'block';
+      } else {
+        btn.style.display = 'none';
+      }
+    });
+
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
+
+<script>
+  const startTime = Date.now(); // 记录启动时间
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const preloader = document.getElementById("preloader");
+
+    // 只在首页执行启动页动画，判断条件：
+    // 严格等于 首页/（末尾带斜杠）
+    if (window.location.href === "# ") {
+      // 显示启动页
+      preloader.style.display = "flex";
+
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+
+      // 监听鼠标移动，更新圆形蒙版的位置
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      window.addEventListener("load", () => {
+        const elapsed = Date.now() - startTime;
+        const minDuration = 500; // 启动页最短显示时间（ms）
+        const delay = elapsed < minDuration ? (minDuration - elapsed) : 0;
+
+        setTimeout(() => {
+          preloader.style.transition = "clip-path 1s ease";
+          preloader.style.clipPath = `circle(0px at ${mouseX}px ${mouseY}px)`;
+
+          // 动画结束后隐藏启动页容器
+          preloader.addEventListener("transitionend", () => {
+            preloader.style.display = "none";
+          }, { once: true });
+        }, delay);
+      });
+    } else {
+      // 非首页隐藏启动页，避免影响页面
+      preloader.style.display = "none";
+    }
+  });
+</script>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        var backButton = document.getElementById('mobile-back-button');
+
+        backButton.addEventListener('click', function() {
+            if (document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
+                window.history.back();
+            } else {
+                window.location.href = '#';
+            }
+        });
+                 // 没有上一页或上一页来自其他网站
+                // 直接跳转到首页作为备用方案
+        backButton.addEventListener('touchstart', function() {
+            this.style.transform = 'scale(1.1)';
+        });
+        backButton.addEventListener('touchend', function() {
+            this.style.transform = 'scale(1)';
+        });
+
+    });
+    </script>
+
+      <style>
+    /* 白色过场遮罩 */
+    .page-transition {
+      position: fixed;
+      inset: 0;
+      background-color: #fff;
+      z-index: 9999;
+      opacity: 1;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+    .page-transition.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* 页面淡入动画 */
+    body.fade-in {
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    body.fade-in.visible {
+      opacity: 1;
+    }
+  </style>
+
+  <div class="page-transition" id="page-transition"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const overlay = document.getElementById("page-transition");
+      const body = document.body;
+
+      // 页面加载完后淡出白幕 + 淡入内容
+      requestAnimationFrame(() => {
+        overlay.classList.add("hidden");
+        body.classList.add("visible");
+      });
+
+      // 页面跳转时再显示白幕
+      document.querySelectorAll("a").forEach(link => {
+        const url = link.getAttribute("href");
+        if (url && !url.startsWith("#") && !url.startsWith("mailto:") && !url.startsWith("tel:")) {
+          link.addEventListener("click", e => {
+            // 打开新标签页或外链不触发动画
+            if (e.metaKey || e.ctrlKey || link.target === "_blank") return;
+            e.preventDefault();
+
+            overlay.classList.remove("hidden");
+
+            // 默认白幕持续时间 0.6s
+            let delay = 600;
+
+            // 特定页面延长至 2s
+            const targetUrl = "https://www.ignoredone.space/index.php/resource/";
+            if (url === targetUrl || url.endsWith("/index.php/resource/")) {
+              delay = 2000;
+            }
+
+            setTimeout(() => {
+              window.location.href = url;
+            }, delay);
+          });
+        }
+      });
+
+      // 页面初始时淡入效果
+      body.classList.add("fade-in");
+      setTimeout(() => body.classList.add("visible"), 50);
+    });
+  </script>
+    <style>
+  /* ===== 桌面端顶部毛玻璃页眉 ===== */
+  .custom-header {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25%;
+    max-width: 1100px;
+    height: 45px;
+    background: rgba(225, 225, 225, 0.5);
+    backdrop-filter: blur(12px);
+    border-radius: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 18px;
+    z-index: 9998;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.07);
+  }
+
+  .custom-header .logo img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .custom-header .menu-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  .custom-header .menu-btn img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
+
+  /* ===== 弹窗 ===== */
+  .custom-popup {
+    position: fixed;
+    top: 12%;
+    right: calc(50% - 12.5%);
+    width: 200px;
+    background: rgba(225, 225, 225, 0.5);
+    backdrop-filter: blur(12px);
+    border-radius: 14px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.07);
+    padding: 12px 0;
+    display: none;
+    z-index: 9998;
+  }
+  .custom-popup.show {
+    display: block;
+    animation: fadeInUp 0.25s ease-in-out;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .custom-popup .iq-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  .custom-popup .iq-list a {
+    display: inline-block;
+    padding: 4px 30px;
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 1.2;
+    color: #333;
+    border-radius: 6px;
+    transition: background 0.3s;
+    text-align: center;
+  }
+  .custom-popup .iq-list a:hover { background: rgba(255,255,255,0.7); }
+  .custom-popup .subtitle {
+    display: block;
+    font-size: 12px;
+    color: #666;
+  }
+
+  </style>
+
+    <style>
+    /*  特定页面样式覆盖 */
+    .custom-header {
+      left: 2.5% !important;
+      transform: none !important;
+      width: 12% !important;
+    }
+    .custom-popup {
+      top: 12%;
+      left: 3.5%;
+      width: 200px;
+    }
+  </style>
+  
+  <!-- ===== 桌面端结构 ===== -->
+  <div class="custom-header">
+    <div class="logo">
+      <a href="index.html">
+        <img src="icon/logo (2).png" alt="Logo">
+      </a>
+    </div>
+    <button class="menu-btn" id="menuToggle">
+      <img src="icon/menu.png" alt="Menu">
+    </button>
+  </div>
+
+  <!-- ===== 弹窗 ===== -->
+  <div class="custom-popup" id="popupMenu">
+      <ul class="iq-list">
+          <li><a href="1.html" target="_blank">守望石像<span class="subtitle">文物简介</span></a></li>
+          <li><a href="2.html" target="_blank">麦田对话<span class="subtitle">它的过去…？</span></a></li>
+          <li><a href="3.html" target="_blank">衍生设计<span class="subtitle">我的朋友石像生</span></a></li>
+          <li><a href="4.html" target="_blank">互动体验<span class="subtitle">如果在秋日&nbsp;一个归乡人</span></a></li>
+          <li><a href="5.html" target="_blank">麦田来信<span class="subtitle">爱你朋友&nbsp;明天见</span></a></li>
+  		  <li><a href="game.html" target="_blank">一起玩吧！<span class="subtitle">不必做赢家&nbsp;玩家也很好</span></a></li>
+      </ul>
+  </div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 当非PC端时不执行悬浮栏相关代码
+    if (window.innerWidth <= 768) return;
+    
+    const popup = document.getElementById("popupMenu");
+    const desktopBtn = document.getElementById("menuToggle");
+
+    const toggleMenu = (e) => {
+      e.stopPropagation();
+      popup.classList.toggle("show");
+    };
+
+    if (desktopBtn) desktopBtn.addEventListener("click", toggleMenu);
+
+    // 点击外部关闭
+    document.addEventListener("click", (e) => {
+      if (!popup.contains(e.target) && !e.target.closest("#menuToggle")) {
+        popup.classList.remove("show");
+      }
+    });
+  });
+  </script>
+
+</head>
+</html>
+
+</html>

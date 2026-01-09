@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en" title="Coding design">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>麦田来信</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: url('art/衬底80%.png') center / cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+         /* 白色带50%透明度 */
+        main.table {
+            width: 77vw;
+            height: 80vh;
+            background-color: #fff5;
+            box-shadow: 0 8px 16px #0005;
+            border-radius: 16px;
+            overflow: hidden;
+			font-family: "SimHei", "Heiti SC", sans-serif; 
+        }
+		h1 { 
+			color:#423422;
+			 }
+
+        /* 白色带40%透明度 */
+        .header {
+            width: 100%;
+            height: 10%;
+            background-color: #fff4;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .input-group {
+            width: 35%;
+            height: 50%;
+            background-color: #fff5;
+            padding: 0 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: .2s;
+        }
+
+        .header .input-group:hover {
+            width: 45%;
+            background-color: #fff8;
+            box-shadow: 0 5px 40px #0002;
+        }
+
+        .header .input-group img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .header .input-group input {
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            outline: none;
+        }
+        /* 白色带70%透明度 */
+        .shell {
+            width: 95%;
+            max-height: calc(90% - 25px);
+            background-color: #fffb;
+            margin: 8px auto;
+            border-radius: 10px;
+            overflow: auto;
+            overflow: overlay;
+        }
+        /* 自定义滚动条样式 */
+        .shell::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        td img {
+            width: 36px;
+            height: 36px;
+            margin-right: 10px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        table,
+        th,
+        td {
+            border-collapse: collapse;
+            padding: 20px;
+            text-align: left;
+        }
+         /* 表头单元格样式 */
+        thead th {
+            position: sticky;
+            top: 0;
+            left: 0;
+            background-color: #CCA169;
+            cursor: pointer;
+        }
+
+        /* 偶数行背景色 */
+        tbody tr:nth-child(even) {
+            background-color: #0000000b;
+        }
+
+        tbody tr:hover {
+            background-color: #fff6 !important;
+        }
+
+        .button {
+                padding: 5px 0;
+                border-radius: 40px;
+                text-align: center;
+                background-color: #FFF3D7;
+                color: #423422;
+                text-decoration: none;
+                display: block; /* 占满单元格 */
+            }
+			.button:hover {
+			        background-color: #E8D0A9;
+			    }
+
+
+    </style>
+</head>
+<style id="uagb-style-conditional-extension">@media (min-width: 1025px)
+{body .uag-hide-desktop.uagb-google-map__wrap,body .uag-hide-desktop{display:none !important}}
+@media (min-width: 768px) and (max-width: 1024px)
+{body .uag-hide-tab.uagb-google-map__wrap,body .uag-hide-tab{display:none !important}}
+@media (max-width: 767px){body .uag-hide-mob.uagb-google-map__wrap,body .uag-hide-mob{display:none !important}}
+</style>
+<style id="uagb-style-frontend-0">.uag-blocks-common-selector{z-index:var(--z-index-desktop) !important}
+@media (max-width: 976px){.uag-blocks-common-selector{z-index:var(--z-index-tablet) !important}}
+@media (max-width: 767px){.uag-blocks-common-selector{z-index:var(--z-index-mobile) !important}}
+</style><link rel="icon" href="icon/log o 34x34.png" sizes="32x32" />
+<link rel="icon" href="icon/logo 192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="icon/logo 192x192.png.png" />
+<meta name="msapplication-TileImage" content="icon/logo 192x192.png" />
+</head>
+<body>
+    <main class="table">
+        <section class="header">
+            <h1>小友，有空常联系！</h1>
+            <div class="input-group">
+                <input type="search" placeholder="不记得了？你小时候我们还抱过你呢！">
+                <img src="icon/search.png">
+            </div>
+        </section>
+        <section class="shell">
+            <table>
+                <thead>
+                    <tr>
+                        <th> Id </th>
+                        <th> 用户名</th>
+                        <th> 年龄</th>
+                        <th> 个性签名 </th>
+                        <th> 联系</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> 001 </td>
+                        <td> <img src="art/文臣.png">文臣</td>
+                        <td> 679 </td>
+                        <td> 人不在神策府 </td>
+                        <td>
+                            <a href="6.html" class="button">发消息</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> 00？</td>
+                        <td><img src="art/武将.png"> 武将 </td>
+                        <td> 537 </td>
+                        <td> 无虑，无悔，无敌！ </td>
+                        <td>
+                            <a href="6.html" class="button">发消息</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> 002 </td>
+                        <td><img src="art/客使.png"> 客使 </td>
+                        <td> 882 </td>
+                        <td> 君子惠渥，晏笑承之 </td>
+                        <td>
+                            <a href="6.html" class="button">发消息</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> 003</td>
+                        <td><img src="art/象.png"> 象 </td>
+                        <td> 706 </td>
+                        <td> 与曹冲小友坐船中~小事留言，大事语音 </td>
+                        <td>
+                            <a href="6.html" class="button">发消息</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> 004</td>
+                        <td><img src="art/虎.png"> 虎 </td>
+                        <td> 463 </td>
+                        <td> 想和大家去野餐(>▽<)！</td>
+                        <td>
+                            <a href="6.html" class="button">发消息</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> 005</td>
+                        <td><img src="art/狮子.png"> 狮 </td>
+                        <td> 402 </td>
+                        <td> 左青龙右白虎，少吃碳水化合物 </td>
+                        <td>
+                            <a href="6.html" class="button">发消息</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> 006</td>
+                        <td><img src="art/甪端.png"> 甪端 </td>
+                        <td> 328 </td>
+                        <td> 老大我们装傻真的有用吗(´•ω•`)？ </td>
+                        <td>
+                            <a href="6.html" class="button">发消息</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> 007</td>
+                        <td><img src="art/羊.png"> 羊 </td>
+                        <td> 195 </td>
+                        <td> 虎想和我野餐，吾命休矣！ </td>
+                        <td>
+                             <a href="6.html" class="button">发消息</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> 008</td>
+                        <td><img src="art/马.png"> 马 </td>
+                        <td> 207 </td>
+                        <td> 大宋邮驿标准差事3等1，今日送明日达 </td>
+                        <td>
+                            <a href="6.html" class="button">发消息</a>
+                        </td>
+                    </tr>
+					<tr>
+					    <td> 009</td>
+					    <td><img src="art/瑞禽.png"> 瑞禽 </td>
+					    <td> 951 </td>
+					    <td> 展翅一去入苍天 苍天比平原更远 </td>
+					    <td>
+					         <a href="6.html" class="button">发消息</a>
+					    </td>
+					</tr>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","\/wp-content\/uploads\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/twentytwentyfour\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<!-- 自定义光标 HTML-->
+<div id="custom-cursor" class="custom-cursor"></div>
+
+<style>
+  /* 默认隐藏系统光标 */
+  @media (pointer: fine) {
+    *:not(input):not(textarea):not(.custom-cursor),
+    *:not(input):not(textarea):not(.custom-cursor)::before,
+    *:not(input):not(textarea):not(.custom-cursor)::after {
+      cursor: none !important;
+    }
+ 
+    #custom-cursor {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background-color: #E3E3E3;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      z-index: 999999;
+      opacity: 1;
+      mix-blend-mode: normal;
+    }
+
+    #custom-cursor.active {
+      transform: translate(-50%, -50%) scale(0.8);
+      background-color: #999;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 检查是否是桌面端（pointer: fine）
+    const isDesktop = window.matchMedia("(pointer: fine)").matches;
+    if (!isDesktop) return;
+
+    const cursor = document.getElementById("custom-cursor");
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    if (cursor) {
+      cursor.style.left = mouseX + "px";
+      cursor.style.top = mouseY + "px";
+
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursor.style.left = mouseX + "px";
+        cursor.style.top = mouseY + "px";
+      });
+
+      document.addEventListener("mousedown", () => {
+        cursor.classList.add("active");
+      });
+
+      document.addEventListener("mouseup", () => {
+        cursor.classList.remove("active");
+      });
+    }
+  });
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const btn = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 300) {
+        btn.style.display = 'block';
+      } else {
+        btn.style.display = 'none';
+      }
+    });
+
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
+
+<script>
+  const startTime = Date.now(); // 记录启动时间
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const preloader = document.getElementById("preloader");
+
+    // 只在首页执行启动页动画，判断条件：
+    // 严格等于 首页/（末尾带斜杠）
+    if (window.location.href === "# ") {
+      // 显示启动页
+      preloader.style.display = "flex";
+
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+
+      // 监听鼠标移动，更新圆形蒙版的位置
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      window.addEventListener("load", () => {
+        const elapsed = Date.now() - startTime;
+        const minDuration = 500; // 启动页最短显示时间（ms）
+        const delay = elapsed < minDuration ? (minDuration - elapsed) : 0;
+
+        setTimeout(() => {
+          preloader.style.transition = "clip-path 1s ease";
+          preloader.style.clipPath = `circle(0px at ${mouseX}px ${mouseY}px)`;
+
+          // 动画结束后隐藏启动页容器
+          preloader.addEventListener("transitionend", () => {
+            preloader.style.display = "none";
+          }, { once: true });
+        }, delay);
+      });
+    } else {
+      // 非首页隐藏启动页，避免影响页面
+      preloader.style.display = "none";
+    }
+  });
+</script>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        var backButton = document.getElementById('mobile-back-button');
+
+        backButton.addEventListener('click', function() {
+            if (document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
+                window.history.back();
+            } else {
+                window.location.href = '#';
+            }
+        });
+                 // 没有上一页或上一页来自其他网站
+                // 直接跳转到首页作为备用方案
+        backButton.addEventListener('touchstart', function() {
+            this.style.transform = 'scale(1.1)';
+        });
+        backButton.addEventListener('touchend', function() {
+            this.style.transform = 'scale(1)';
+        });
+
+    });
+    </script>
+
+      <style>
+    /* 白色过场遮罩 */
+    .page-transition {
+      position: fixed;
+      inset: 0;
+      background-color: #fff;
+      z-index: 9999;
+      opacity: 1;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+    .page-transition.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* 页面淡入动画 */
+    body.fade-in {
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    body.fade-in.visible {
+      opacity: 1;
+    }
+  </style>
+
+  <div class="page-transition" id="page-transition"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const overlay = document.getElementById("page-transition");
+      const body = document.body;
+
+      // 页面加载完后淡出白幕 + 淡入内容
+      requestAnimationFrame(() => {
+        overlay.classList.add("hidden");
+        body.classList.add("visible");
+      });
+
+      // 页面跳转时再显示白幕
+      document.querySelectorAll("a").forEach(link => {
+        const url = link.getAttribute("href");
+        if (url && !url.startsWith("#") && !url.startsWith("mailto:") && !url.startsWith("tel:")) {
+          link.addEventListener("click", e => {
+            // 打开新标签页或外链不触发动画
+            if (e.metaKey || e.ctrlKey || link.target === "_blank") return;
+            e.preventDefault();
+
+            overlay.classList.remove("hidden");
+
+            // 默认白幕持续时间 0.6s
+            let delay = 600;
+
+            // 特定页面延长至 2s
+            const targetUrl = "https://www.ignoredone.space/index.php/resource/";
+            if (url === targetUrl || url.endsWith("/index.php/resource/")) {
+              delay = 2000;
+            }
+
+            setTimeout(() => {
+              window.location.href = url;
+            }, delay);
+          });
+        }
+      });
+
+      // 页面初始时淡入效果
+      body.classList.add("fade-in");
+      setTimeout(() => body.classList.add("visible"), 50);
+    });
+  </script>
+    <style>
+  /* ===== 桌面端顶部毛玻璃页眉 ===== */
+  .custom-header {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25%;
+    max-width: 1100px;
+    height: 45px;
+    background: rgba(225, 225, 225, 0.5);
+    backdrop-filter: blur(12px);
+    border-radius: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 18px;
+    z-index: 9998;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.07);
+  }
+
+  .custom-header .logo img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .custom-header .menu-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  .custom-header .menu-btn img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
+
+  /* ===== 弹窗 ===== */
+  .custom-popup {
+    position: fixed;
+    top: 12%;
+    right: calc(50% - 12.5%);
+    width: 200px;
+    background: rgba(225, 225, 225, 0.5);
+    backdrop-filter: blur(12px);
+    border-radius: 14px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.07);
+    padding: 12px 0;
+    display: none;
+    z-index: 9998;
+  }
+  .custom-popup.show {
+    display: block;
+    animation: fadeInUp 0.25s ease-in-out;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .custom-popup .iq-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  .custom-popup .iq-list a {
+    display: inline-block;
+    padding: 4px 30px;
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 1.2;
+    color: #333;
+    border-radius: 6px;
+    transition: background 0.3s;
+    text-align: center;
+  }
+  .custom-popup .iq-list a:hover { background: rgba(255,255,255,0.7); }
+  .custom-popup .subtitle {
+    display: block;
+    font-size: 12px;
+    color: #666;
+  }
+
+  </style>
+
+    <style>
+    /*  特定页面样式覆盖 */
+    .custom-header {
+      left: 2.5% !important;
+      transform: none !important;
+      width: 12% !important;
+    }
+    .custom-popup {
+      top: 12%;
+      left: 3.5%;
+      width: 200px;
+    }
+  </style>
+  
+  <!-- ===== 桌面端结构 ===== -->
+  <div class="custom-header">
+    <div class="logo">
+      <a href="index.html">
+        <img src="icon/logo (2).png" alt="Logo">
+      </a>
+    </div>
+    <button class="menu-btn" id="menuToggle">
+      <img src="icon/menu.png" alt="Menu">
+    </button>
+  </div>
+
+  <!-- ===== 弹窗 ===== -->
+  <div class="custom-popup" id="popupMenu">
+      <ul class="iq-list">
+          <li><a href="1.html" target="_blank">守望石像<span class="subtitle">文物简介</span></a></li>
+          <li><a href="2.html" target="_blank">麦田对话<span class="subtitle">它的过去…？</span></a></li>
+          <li><a href="3.html" target="_blank">衍生设计<span class="subtitle">我的朋友石像生</span></a></li>
+          <li><a href="4.html" target="_blank">互动体验<span class="subtitle">如果在秋日&nbsp;一个归乡人</span></a></li>
+          <li><a href="5.html" target="_blank">麦田来信<span class="subtitle">爱你朋友&nbsp;明天见</span></a></li>
+  		  <li><a href="game.html" target="_blank">一起玩吧！<span class="subtitle">不必做赢家&nbsp;玩家也很好</span></a></li>
+      </ul>
+  </div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 当非PC端时不执行悬浮栏相关代码
+    if (window.innerWidth <= 768) return;
+    
+    const popup = document.getElementById("popupMenu");
+    const desktopBtn = document.getElementById("menuToggle");
+
+    const toggleMenu = (e) => {
+      e.stopPropagation();
+      popup.classList.toggle("show");
+    };
+
+    if (desktopBtn) desktopBtn.addEventListener("click", toggleMenu);
+
+    // 点击外部关闭
+    document.addEventListener("click", (e) => {
+      if (!popup.contains(e.target) && !e.target.closest("#menuToggle")) {
+        popup.classList.remove("show");
+      }
+    });
+  });
+  </script>
+
+</head>
+</html>
+
+</html>

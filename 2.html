@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>麦田对话</title>
+
+ <!-- 引用中文字体 MiSans -->
+    <link href="https://cdn.jsdelivr.net/gh/TPCTang/MiSans-Webfont@latest/fonts.css" rel="stylesheet">
+    
+    <!-- 引入英文字体 Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&#038;display=swap" rel="stylesheet">
+    
+<style>
+* {
+margin: 0;
+padding: 0;
+}
+
+body,
+section {
+	font-family: "Outfit", "MiSans", "PingFang SC", "Microsoft YaHei", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+overflow-x: hidden;
+block-size: 100%;
+}
+.back-btn {
+            position: fixed; /* 悬浮固定 */
+            top: 20px; 
+            left: 20px; 
+            width: 40px; 
+            height: 40px;
+            border-radius: 50%; /* 圆形 */
+            background-color: #E8D0A9; 
+            color: #423422; 
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9999; /* 确保在最上层 */
+            text-decoration: none; 
+            transition: all 0.3s ease; 
+        }
+
+        .back-btn:hover {
+            background-color: #423422; 
+            color: #E8D0A9; 
+            transform: scale(1.1); 
+            box-shadow: 0 0 10px rgba(0,0,0,0.3); 
+        }
+		.arrow-img {
+		    width: 20px;    
+		    height: 20px;   
+		    object-fit: contain; /* 保证图片比例不变形 */
+		}
+/* 纵向滚动强制性 */ 
+html { 
+scroll-snap-type: y mandatory; 
+} 
+/* section 元素的滚动对齐方式为起始位置 */ 
+section { 
+scroll-snap-align: start; 
+scroll-snap-stop: always; 
+display: flex; 
+align-items: center; 
+justify-content: center; 
+height: 100vh; 
+} 
+/* flex布局溢出隐藏 */ 
+.box { 
+width: 100vw; 
+height: 100vh; 
+position: relative; 
+display: flex; 
+overflow: hidden; 
+} 
+/* box-block的绝对定位，使用3D变换 */ 
+.box-block { 
+position: absolute; 
+top: 0; 
+left: 0; 
+width: 100%; 
+height: 100%; 
+background-size: 120%; 
+background-repeat: no-repeat; 
+background-position: center 0; 
+transform: translate3d(0, 0, 0); 
+will-change: background-position; 
+} 
+/* 媒体适应 */ 
+@media (max-width:1200px) { 
+.box-block { 
+background-size: 150%; 
+} 
+.box { 
+height: 50vh; 
+} 
+} 
+/* 设置.box-block的伪元素 */ 
+.box-block::before { 
+position: absolute; 
+top: 0; 
+left: 0; 
+content: ''; 
+display: block; 
+width: 100%; 
+height: 100%; 
+background-color: rgba(0, 0, 0, 0.35); 
+transition: background-color 0.3s ease; 
+} 
+/* 悬停box-block的伪元素*/ 
+.box:hover .box-block::before { 
+background-color: rgba(0, 0, 0, 0.2); 
+} 
+/* box-text的相对定位 */ 
+.box-text { 
+position: relative; 
+width: 60%; 
+height: 100%; 
+display: flex; 
+align-items: center; 
+justify-content: center; 
+flex-direction: column; 
+font-family: '优设标题黑'; 
+color: #F1F1F1; 
+} 
+
+.box-text .text-title { 
+font-size: 34px; 
+margin-bottom: 20px; 
+} 
+.box:nth-child(1n) .box-block { 
+background-image: url('AR/树.png'); 
+} 
+.box:nth-child(2n) .box-block { 
+background-image: url('photo/pg2.jpg'); 
+background-position: 1000px 1100px; 
+} 
+.box:nth-child(3n) .box-block { 
+background-image: url('photo/16.jpg'); 
+} 
+.box:nth-child(4n) .box-block { 
+background-image: url('photo/pg5.jpg'); 
+} 
+.box:nth-child(5n) .box-block { 
+background-image: url('AR/树.png'); 
+} 
+
+</style>
+</head>
+<!-- 自适应标签页LOGO -->
+<style id="uagb-style-conditional-extension">
+@media (min-width: 1025px)
+{body .uag-hide-desktop.uagb-google-map__wrap,body .uag-hide-desktop{display:none !important}}
+@media (min-width: 768px) and (max-width: 1024px)
+{body .uag-hide-tab.uagb-google-map__wrap,body .uag-hide-tab{display:none !important}}
+@media (max-width: 767px){body .uag-hide-mob.uagb-google-map__wrap,body .uag-hide-mob{display:none !important}}
+</style>
+<style id="uagb-style-frontend-0">.uag-blocks-common-selector{z-index:var(--z-index-desktop) !important}
+@media (max-width: 976px){.uag-blocks-common-selector{z-index:var(--z-index-tablet) !important}}
+@media (max-width: 767px){.uag-blocks-common-selector{z-index:var(--z-index-mobile) !important}}
+</style><link rel="icon" href="icon/log o 34x34.png" sizes="32x32" />
+<link rel="icon" href="icon/logo 192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="icon/logo 192x192.png.png" />
+<meta name="msapplication-TileImage" content="icon/logo 192x192.png" />
+</head>
+<body>
+    <!-- 返回按钮 -->
+    <<a href="index.html" class="back-btn">
+    <img src="icon/left.png" alt="返回首页" class="arrow-img">
+</a>
+
+<body>
+<section class="box">
+<div class="box-block"></div>
+<div class="box-text">
+<div class="text-title"><p align=center>大地上的露天石雕博物馆</p></div>
+<div class="text-desc">北宋皇陵也叫“宋陵”，是我国现存最完整的古代陵墓造像群之一。<br/>
+2022年河南省文物局公布的数据显示，宋陵面积约180平方公里，历经千年岁月洗礼，仍有各类石刻共计1027件，是我国现存最完整的古代陵墓造像群之一。1982年，宋陵被国务院公布为第二批全国重点文物保护单位。</div>
+</div>
+</section>
+<section class="box">
+<div class="box-block"></div>
+<div class="box-text">
+<div class="text-title">“七帝八陵”</div>
+<div class="text-desc">宋陵共分为西村、蔡庄、孝义和八陵4个陵区，埋葬有除徽、钦二帝外的北宋其余七位皇帝，以及赵匡胤之父赵弘殷，统称为“七帝八陵”。
+“八陵”皆坐北朝南，头枕黄河，脚踏嵩山，冠以一个“永”字：宋太祖永昌陵、太宗永熙陵、真宗永定陵、仁宗永昭陵、英宗永厚陵、神宗永裕陵、哲宗永泰陵，以及赵弘殷的永安陵。</div>
+</div>
+</section>
+<section class="box">
+<div class="box-block"></div>
+<div class="box-text">
+<div class="text-title">“这座石像下曾栖息过一个疲惫的王朝。”</div>
+<div class="text-desc">它们见证了大宋王朝的没落，如同一个孤寂的守望者，悠悠地诉说着昔日的辉煌，岁月的刻痕深深地烙印在它们的身上，依然不改昔日骄傲的风采。
+有摄影爱好者认为神道石像生是“北宋王朝最后的背影”——北宋皇陵的主人早已不复存在，但作为配角的石像生，在历史滚滚车轮下成了陵区的主角</div>
+</div>
+</section>
+<section class="box">
+<div class="box-block"></div>
+<div class="box-text">
+<div class="text-title">麦田守望者</div>
+<div class="text-desc">现如今，宋陵每个帝陵旁，都建立了专门的文物保护站，守护这些荒野中的文明遗迹。<br>
+一千年后，北宋皇陵有些已成为遗址公园，有些在麦田之间，供人们闲时休憩，忙时偷闲，闷时凭吊。<div>
+</div>
+</section>
+<section class="box">
+<div class="box-block"></div>
+<div class="box-text">
+<div class="text-title">一个时代的落幕，恰恰也是另一个时代的起点。</div>
+<div class="text-desc">同一片沃土之上，新郑市裴李岗沉睡着一个改写中华农业史的密码。
+距今约8000年前的聚落遗址，石磨盘、石铲与碳化粟粒，默默宣告着这里是中国北方旱作农业的摇篮。<br>
+河南以不足全国1/16的耕地，贡献了全国1/4的小麦。
+从裴李岗遗址8000年前的原始粟粒，到北宋皇陵千年守望的石像生，历史与现实在这片田野上交汇。</div>
+</div>
+</section>
+<script>
+	
+
+const wh = window.innerHeight;
+// 监听窗口滚动事件 
+const sectionBlock = Array.from(document.querySelectorAll('.box-block'));
+// 获取所有class为section-item__block的元素，并将其转换为数组 
+window.addEventListener('scroll', () => {
+sectionBlock.forEach(el => {
+const { bottom, top, height } = el.getBoundingClientRect();
+// 如果元素完全位于视口之外，或者完全位于视口之上，则不进行任何操作 
+if (bottom <= 0 || top >= wh) return;
+// 计算元素的背景位置的y坐标，根据滚动条的位置进行计算 
+const y = document.documentElement.scrollTop * 0.5;
+el.style.backgroundPosition = `center -${y}px`; 
+}); 
+}); 
+</script>
+</body>
+
+</html>
